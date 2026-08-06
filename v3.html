@@ -441,6 +441,25 @@ button{font-family:inherit;cursor:pointer;background:none;border:none}
 .map-embed iframe{width:100%;height:450px;border:0;display:block;filter:saturate(.8)}
 @media(max-width:900px){.cgrid{grid-template-columns:1fr}.frow{grid-template-columns:1fr}}
 
+/* ============ GIỚI THIỆU: CEO + TIMELINE ============ */
+.ceo-band{border-radius:36px;margin:0 clamp(12px,2vw,28px);background:var(--n950);color:#fff;overflow:hidden;position:relative}
+.ceo-band::after{content:"";position:absolute;left:-140px;bottom:-180px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(46,155,214,.22),transparent 65%)}
+.ceo-grid{display:grid;grid-template-columns:300px 1fr;gap:clamp(30px,5vw,70px);align-items:center;position:relative;z-index:2}
+.ceo-photo{border-radius:20px;overflow:hidden;box-shadow:var(--sh-xl);background:#fff}
+.ceo-photo img{width:100%;aspect-ratio:1/1.05;object-fit:cover;object-position:top}
+.ceo-q{font-family:var(--disp);font-size:clamp(17px,2vw,23px);font-weight:500;line-height:1.6;color:#D7E5F8}
+.ceo-q em{font-style:normal;color:var(--sky3)}
+.ceo-who{margin-top:26px}
+.ceo-who b{display:block;font-family:var(--disp);font-size:18px;color:#fff}
+.ceo-who i{font-style:normal;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut-d)}
+@media(max-width:860px){.ceo-grid{grid-template-columns:1fr}.ceo-photo{max-width:280px}}
+.tline{position:relative;display:grid;gap:0;border-left:2px solid var(--line);margin-left:10px;max-width:780px}
+.tline .tl{position:relative;padding:0 0 44px 46px}
+.tline .tl:last-child{padding-bottom:0}
+.tline .tl::before{content:"";position:absolute;left:-9px;top:6px;width:16px;height:16px;border-radius:50%;background:#fff;border:3.5px solid var(--sky)}
+.tline .ty{font-family:var(--disp);font-size:23px;font-weight:700;color:var(--sky);letter-spacing:-.01em}
+.tline .tl p{font-size:15.5px;color:var(--mut);max-width:600px;margin-top:6px}
+
 /* router + reveal */
 .page{display:none}
 .page.on{display:block;animation:pgin .6s var(--e)}
@@ -698,21 +717,99 @@ button{font-family:inherit;cursor:pointer;background:none;border:none}
     <div class="wrap">
       <div class="crumb"><a href="#/">Trang chủ</a> / <b>Về Nguyễn Bình</b></div>
       <h1 class="h1 wsplit" data-ws>Về Nguyễn Bình</h1>
-      <p class="lead">Hồ sơ năng lực của đơn vị thi công nhà bạt hàng đầu khu vực phía Nam — từ 2009 đến nay.</p>
+      <p class="lead">Công Ty TNHH Dịch Vụ Nguyễn Bình — thương hiệu nhà bạt uy tín trên thị trường Việt Nam từ 2009.</p>
     </div>
   </div>
   <div class="sheet">
     <div class="sec">
       <div class="wrap split">
         <div class="reveal">
-          <span class="eyeb"><i></i>Câu chuyện</span>
-          <h2 class="h2 wsplit" data-ws>15 năm kiến tạo không gian</h2>
-          <p class="lead" style="max-width:none">Công ty Nguyễn Bình được thành lập từ năm 2009, chuyên cung cấp giải pháp tư vấn và lắp đặt nhà bạt không gian chất lượng cao. Với hơn 15 năm kinh nghiệm, chúng tôi tự hào là đơn vị thi công hàng đầu khu vực, đảm bảo mỗi dự án hoàn thành chính xác và đúng tiến độ.</p>
-          <p class="lead" style="max-width:none;margin-top:14px">Chúng tôi luôn hướng đến nâng cao chất lượng dịch vụ và mang lại giá trị tối đa cho khách hàng — từ sự kiện văn hóa, hội chợ triển lãm quốc tế đến kho tạm công nghiệp dài hạn.</p>
+          <span class="eyeb"><i></i>Tầm nhìn</span>
+          <h2 class="h2 wsplit" data-ws>Thương hiệu nhà bạt uy tín tại Việt Nam</h2>
+          <p class="lead" style="max-width:none">Ra đời vào năm 2009, Công Ty TNHH Dịch Vụ Nguyễn Bình tự hào là một trong những đơn vị cung cấp giải pháp và thi công nhà bạt hàng đầu tại các tỉnh phía Nam và khu vực Tây Nguyên.</p>
+          <p class="lead" style="max-width:none;margin-top:14px">Hiểu được xu hướng thị trường, công ty Nguyễn Bình mang đến những giải pháp thi công lắp đặt nhà bạt nhanh chóng và an toàn, liên tục phát triển và sản xuất các sản phẩm mới được khách hàng đón nhận.</p>
         </div>
         <div class="stack-media reveal d1">
-          <img class="m1" src="https://nguyenbinh.com/wp-content/uploads/2024/07/nha-bat-nguyen-binh-1.jpg" alt="Nhà bạt Nguyễn Bình">
+          <img class="m1" src="https://nguyenbinh.com/wp-content/uploads/2023/04/about-1024x576.png" alt="Công ty Nguyễn Bình">
           <img class="m2" src="https://nguyenbinh.com/wp-content/uploads/2024/07/co-so-ha-tang-nha-bat-nguyen-binh-1-300x246.jpg" alt="Cơ sở hạ tầng">
+        </div>
+      </div>
+    </div>
+    <!-- CEO -->
+    <div class="ceo-band">
+      <div class="wrap ceo-grid" style="padding-top:clamp(48px,6vw,80px);padding-bottom:clamp(48px,6vw,80px)">
+        <div class="ceo-photo reveal"><img src="https://nguyenbinh.com/wp-content/uploads/2023/04/Logo.png" alt="Ông Nguyễn Tích Bình — CEO Công ty Nguyễn Bình"></div>
+        <div class="reveal d1">
+          <p class="ceo-q">“Chúng tôi mong muốn trở thành <em>thương hiệu hàng đầu về giải pháp nhà bạt không gian</em> tại thị trường Việt Nam, mang đến các sản phẩm và dịch vụ chất lượng cao, đáp ứng mọi yêu cầu khắt khe của khách hàng. Với cam kết không ngừng cải tiến và phát triển, chúng tôi hướng đến việc xây dựng lòng tin và uy tín trong ngành, trở thành đối tác đáng tin cậy cho tất cả các quý khách hàng.”</p>
+          <div class="ceo-who"><b>Ông Nguyễn Tích Bình</b><i>CEO Công ty Nguyễn Bình</i></div>
+        </div>
+      </div>
+    </div>
+    <!-- Sứ mệnh -->
+    <div class="sec">
+      <div class="wrap split">
+        <div class="stack-media reveal"><img class="m1" style="object-fit:contain;background:var(--fog)" src="https://nguyenbinh.com/wp-content/uploads/2023/04/mat-do-Nguyen-Binh.png" alt="Mạng lưới 27 tỉnh thành của Nguyễn Bình"></div>
+        <div class="reveal d1">
+          <span class="eyeb"><i></i>Sứ mệnh</span>
+          <h2 class="h2 wsplit" data-ws>Mọi không gian đều có giải pháp phù hợp</h2>
+          <p class="lead" style="max-width:none">Nguyễn Bình không ngừng nỗ lực phát triển, cập nhật thiết kế sản xuất và tư vấn giải pháp thi công về nhà bạt giúp khách hàng dễ dàng chọn lựa sản phẩm phù hợp với không gian và điều kiện sử dụng.</p>
+          <p class="lead" style="max-width:none;margin-top:14px">Cho đến nay, chúng tôi tự tin là đơn vị duy nhất cung cấp nhiều lựa chọn về sản phẩm nhà bạt với chất lượng và giá cả cạnh tranh nhất.</p>
+        </div>
+      </div>
+      <div class="wrap" style="margin-top:clamp(44px,6vw,72px)">
+        <div class="stats-line reveal">
+          <div class="stl"><b>+<span data-count="27">0</span></b><span>Tỉnh thành phủ dịch vụ — từ Duyên hải Nam Trung Bộ đến Miền Nam</span></div>
+          <div class="stl"><b><span data-count="30000">0</span><small>m²</small></b><span>Nhà bạt sẵn sàng phục vụ công trình sự kiện, triển lãm thương mại</span></div>
+          <div class="stl"><b><span data-count="20">0</span><small>+ mẫu</small></b><span>Sản phẩm nhà bạt chất lượng cao, đa mục đích sử dụng</span></div>
+          <div class="stl"><b><span data-count="1000">0</span><small>+</small></b><span>Khách hàng đã tin tưởng sử dụng sản phẩm và dịch vụ</span></div>
+        </div>
+      </div>
+    </div>
+    <!-- 15 năm uy tín -->
+    <div class="sec sheet--fog" style="border-radius:36px 36px 0 0">
+      <div class="wrap split">
+        <div class="reveal">
+          <span class="eyeb"><i></i>Uy tín</span>
+          <h2 class="h2 wsplit" data-ws>Hơn 15 năm uy tín trên thị trường Việt Nam</h2>
+          <p class="lead" style="max-width:none">Ra đời từ năm 2009, hiện tại Nguyễn Bình đã sở hữu nhà xưởng có tổng diện tích trên 3.000 m² được trang bị đầy đủ các thiết bị hiện đại với hơn 50 nhân viên tay nghề cao và đội ngũ lãnh đạo trên 15 năm kinh nghiệm.</p>
+          <p class="lead" style="max-width:none;margin-top:14px">Chúng tôi đảm bảo mang đến cho khách hàng sự hài lòng tuyệt đối, thi công đúng tiến độ với chất lượng tốt nhất.</p>
+        </div>
+        <div class="stack-media reveal d1"><img class="m1" src="https://nguyenbinh.com/wp-content/uploads/2023/04/Website-1000-x-555-min.png" alt="Nhà xưởng Nguyễn Bình"></div>
+      </div>
+    </div>
+    <!-- Lĩnh vực hoạt động -->
+    <div class="sec">
+      <div class="wrap">
+        <div class="sec-head reveal"><span class="eyeb"><i></i>Lĩnh vực hoạt động</span><h2 class="h2 wsplit" data-ws>Ba trụ cột dịch vụ của Nguyễn Bình</h2></div>
+        <div class="blog-grid">
+          <a class="bpost reveal" href="#/dich-vu/su-kien">
+            <div class="im"><img src="https://nguyenbinh.com/wp-content/uploads/2023/04/3-min.png" alt="Tổ chức sự kiện" loading="lazy"><span class="cat">Lĩnh vực 01</span></div>
+            <div class="bd"><h4>Tổ chức Sự kiện</h4><p>Nguyễn Bình tự hào là đơn vị cho thuê nhà bạt để tổ chức sự kiện uy tín và phù hợp cho từng sự kiện riêng biệt.</p>
+            <div class="ft"><span>Xem thêm →</span></div></div>
+          </a>
+          <a class="bpost reveal d1" href="#/dich-vu/trien-lam">
+            <div class="im"><img src="https://nguyenbinh.com/wp-content/uploads/2023/04/4-min.png" alt="Triển lãm thương mại" loading="lazy"><span class="cat">Lĩnh vực 02</span></div>
+            <div class="bd"><h4>Triển lãm Thương mại</h4><p>Nguyễn Bình đưa ra những ý tưởng dựa trên sản phẩm, dịch vụ của khách hàng để làm nên một khu vực trưng bày độc đáo.</p>
+            <div class="ft"><span>Xem thêm →</span></div></div>
+          </a>
+          <a class="bpost reveal d2" href="#/dich-vu/kho-tam">
+            <div class="im"><img src="https://nguyenbinh.com/wp-content/uploads/2023/04/5-min.png" alt="Mua bán nhà bạt" loading="lazy"><span class="cat">Lĩnh vực 03</span></div>
+            <div class="bd"><h4>Mua bán Nhà bạt</h4><p>Nhà bạt kho tạm là biện pháp mới dành cho các doanh nghiệp cần không gian che phủ, bảo vệ hàng hóa với chi phí hợp lý.</p>
+            <div class="ft"><span>Xem thêm →</span></div></div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- Dấu ấn hành trình -->
+    <div class="sec" style="padding-top:0">
+      <div class="wrap">
+        <div class="sec-head reveal"><span class="eyeb"><i></i>Hành trình</span><h2 class="h2 wsplit" data-ws>Những dấu ấn của Nguyễn Bình</h2></div>
+        <div class="tline reveal d1">
+          <div class="tl"><span class="ty">2009</span><p>Công ty TNHH Dịch vụ Nguyễn Bình được thành lập.</p></div>
+          <div class="tl"><span class="ty">2011</span><p>Dẫn đầu thị trường cho thuê và thiết kế nhà bạt không gian tại Việt Nam.</p></div>
+          <div class="tl"><span class="ty">2013</span><p>Đáp ứng tốt các tiêu chuẩn của công trình Việt Nam và Quốc tế.</p></div>
+          <div class="tl"><span class="ty">2019</span><p>Thi công nhiều dự án quy mô lớn: Khánh thành Nhà máy Bia Budweiser, Triển lãm Novaland Expo…</p></div>
+          <div class="tl"><span class="ty">2023</span><p>Hợp tác thi công dự án tại SECC (Trung tâm Hội chợ và Triển lãm Sài Gòn), đẩy mạnh phát triển thương hiệu nhà bạt được thị trường Quốc tế tín nhiệm.</p></div>
         </div>
       </div>
     </div>

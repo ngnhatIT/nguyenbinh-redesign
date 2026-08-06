@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nhà Bạt Nguyễn Bình — Giải pháp nhà bạt không gian chuyên nghiệp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1B2F8A;          /* xanh navy wordmark logo */
+  --navy-deep:#122058;
+  --ink:#0E1B3D;
+  --sky:#2E9BD6;           /* xanh da trời logo NB */
+  --sky-soft:#E3F1FA;
+  --cloud:#F3F7FB;         /* nền section xen kẽ */
+  --paper:#FFFFFF;
+  --line:#DCE6F0;
+  --muted:#5B6B87;
+  --font-display:'Bricolage Grotesque',sans-serif;
+  --font-body:'Be Vietnam Pro',sans-serif;
+  --radius:18px;
+  --shadow:0 10px 30px rgba(14,27,61,.08);
+  --shadow-lift:0 18px 44px rgba(14,27,61,.14);
+  --wrap:1180px;
+  --sec:clamp(72px,9vw,110px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);color:var(--ink);background:var(--paper);line-height:1.65;font-size:16px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+button{font-family:inherit;cursor:pointer}
+
+/* ---------- hệ thống section chung ---------- */
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+.sec{padding:var(--sec) 0}
+.sec--cloud{background:var(--cloud)}
+.sec--navy{background:linear-gradient(160deg,var(--navy-deep) 0%,var(--navy) 70%);color:#fff}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sky);margin-bottom:14px}
+.eyebrow::before{content:"";width:26px;height:2px;background:var(--sky);border-radius:2px}
+.h1{font-family:var(--font-display);font-weight:800;font-size:clamp(34px,5.2vw,58px);line-height:1.12;letter-spacing:-.01em}
+.h2{font-family:var(--font-display);font-weight:800;font-size:clamp(27px,3.6vw,40px);line-height:1.18;letter-spacing:-.01em;color:var(--navy)}
+.sec--navy .h2{color:#fff}
+.h3{font-family:var(--font-display);font-weight:700;font-size:21px;line-height:1.3;color:var(--navy)}
+.lead{color:var(--muted);font-size:17px;max-width:640px;margin-top:14px}
+.sec--navy .lead{color:#BFD3EE}
+.sec-head{margin-bottom:clamp(36px,5vw,56px)}
+.sec-head--center{text-align:center}
+.sec-head--center .lead{margin-left:auto;margin-right:auto}
+.sec-head--center .eyebrow{justify-content:center}
+.sec-head--center .eyebrow::before{display:none}
+
+/* motif nóc bạt: đường gấp mái giữa các section */
+.ridge{height:34px;background:var(--cloud);clip-path:polygon(0 100%,0 60%,50% 0,100% 60%,100% 100%)}
+.ridge--flip{background:var(--paper)}
+
+/* ---------- nút ---------- */
+.btn{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:15px;padding:14px 28px;border-radius:999px;border:2px solid transparent;transition:transform .25s ease,box-shadow .25s ease,background .25s ease,color .25s ease}
+.btn svg{transition:transform .25s ease}
+.btn:hover svg{transform:translateX(4px)}
+.btn--sky{background:var(--sky);color:#fff;box-shadow:0 8px 22px rgba(46,155,214,.35)}
+.btn--sky:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(46,155,214,.45)}
+.btn--ghost{border-color:rgba(255,255,255,.5);color:#fff}
+.btn--ghost:hover{background:rgba(255,255,255,.12);transform:translateY(-2px)}
+.btn--navy{background:var(--navy);color:#fff;box-shadow:0 8px 22px rgba(27,47,138,.3)}
+.btn--navy:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(27,47,138,.4)}
+.btn--outline{border-color:var(--navy);color:var(--navy)}
+.btn--outline:hover{background:var(--navy);color:#fff;transform:translateY(-2px)}
+
+/* ---------- header ---------- */
+.header{position:fixed;inset:0 0 auto 0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+.header.scrolled{border-color:var(--line);box-shadow:0 6px 24px rgba(14,27,61,.06)}
+.header .wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
+.logo img{height:44px;width:auto}
+.nav{display:flex;align-items:center;gap:4px}
+.nav>li{position:relative}
+.nav>li>a{display:flex;align-items:center;gap:6px;padding:10px 14px;font-size:14.5px;font-weight:600;color:var(--ink);border-radius:10px;transition:color .2s,background .2s;white-space:nowrap}
+.nav>li>a:hover,.nav>li>a.active{color:var(--sky);background:var(--sky-soft)}
+.nav .caret{width:9px;height:9px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .25s}
+.nav>li:hover .caret{transform:rotate(225deg) translateY(-1px)}
+.dropdown{position:absolute;top:calc(100% + 10px);left:0;min-width:250px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-lift);padding:8px;opacity:0;visibility:hidden;transform:translateY(10px);transition:all .28s cubic-bezier(.22,1,.36,1)}
+.nav>li:hover .dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+.dropdown a{display:block;padding:11px 14px;font-size:14.5px;font-weight:500;border-radius:9px;color:var(--ink);transition:background .2s,color .2s,padding-left .2s}
+.dropdown a:hover{background:var(--sky-soft);color:var(--sky);padding-left:20px}
+.hotline{display:inline-flex;align-items:center;gap:9px;background:var(--navy);color:#fff;font-weight:700;font-size:14.5px;padding:11px 20px;border-radius:999px;transition:transform .25s,box-shadow .25s;white-space:nowrap}
+.hotline:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(27,47,138,.35)}
+.hotline .dot{width:8px;height:8px;border-radius:50%;background:#4ADE80;animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.6)}50%{box-shadow:0 0 0 6px rgba(74,222,128,0)}}
+.burger{display:none;background:none;border:none;width:44px;height:44px;position:relative}
+.burger span{position:absolute;left:10px;right:10px;height:2.5px;background:var(--navy);border-radius:2px;transition:all .3s}
+.burger span:nth-child(1){top:14px}.burger span:nth-child(2){top:21px}.burger span:nth-child(3){top:28px}
+.burger.open span:nth-child(1){top:21px;transform:rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){top:21px;transform:rotate(-45deg)}
+@media(max-width:1020px){
+  .nav{position:fixed;top:76px;left:0;right:0;bottom:0;background:#fff;flex-direction:column;align-items:stretch;gap:0;padding:20px 24px;overflow-y:auto;transform:translateX(100%);transition:transform .35s cubic-bezier(.22,1,.36,1)}
+  .nav.open{transform:translateX(0)}
+  .nav>li>a{padding:15px 8px;font-size:17px;border-bottom:1px solid var(--cloud);border-radius:0}
+  .dropdown{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;border:none;padding:0 0 0 16px;display:none}
+  .nav>li.exp .dropdown{display:block}
+  .burger{display:block}
+  .hotline span.txt{display:none}
+}
+
+/* ---------- hero trang chủ ---------- */
+.hero{position:relative;min-height:92vh;display:flex;align-items:center;overflow:hidden;color:#fff;padding-top:76px}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;animation:kenburns 22s ease-in-out infinite alternate}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.09)}}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,rgba(14,25,70,.92) 0%,rgba(18,32,88,.78) 45%,rgba(18,32,88,.25) 100%)}
+/* lưới bản vẽ kỹ thuật */
+.hero-grid{position:absolute;inset:0;z-index:1;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:64px 64px;mask-image:linear-gradient(to right,black 55%,transparent)}
+.hero-inner{position:relative;z-index:2;width:100%}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(46,155,214,.18);border:1px solid rgba(46,155,214,.5);color:#8FD0F2;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:8px 18px;border-radius:999px;margin-bottom:22px}
+.hero h1{max-width:720px}
+.hero h1 em{font-style:normal;color:var(--sky);position:relative}
+.hero p.sub{max-width:560px;margin:22px 0 34px;font-size:18px;color:#C9DAF2}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+/* dải thông số kỹ thuật — chữ ký của thiết kế */
+.spec-strip{position:relative;z-index:2;margin-top:clamp(48px,7vh,80px);border-top:1px dashed rgba(255,255,255,.28);padding-top:26px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:880px}
+.spec i{display:block;font-style:normal;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8FA9D8;margin-bottom:4px}
+.spec b{font-family:var(--font-display);font-size:19px;font-weight:700;color:#fff}
+.spec{position:relative;padding-left:16px}
+.spec::before{content:"";position:absolute;left:0;top:4px;bottom:4px;width:2px;background:var(--sky);border-radius:2px}
+@media(max-width:760px){.spec-strip{grid-template-columns:repeat(2,1fr)}}
+
+/* hero phụ (trang con) */
+.hero-sub{position:relative;padding:calc(76px + clamp(64px,9vw,110px)) 0 clamp(56px,7vw,88px);background:linear-gradient(150deg,var(--navy-deep),var(--navy) 65%,#274BB5);color:#fff;overflow:hidden}
+.hero-sub::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:56px 56px;mask-image:linear-gradient(to bottom right,black,transparent 75%)}
+.hero-sub::after{content:"";position:absolute;right:-120px;bottom:-190px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(46,155,214,.35),transparent 65%)}
+.hero-sub .wrap{position:relative;z-index:2}
+.crumb{font-size:13.5px;color:#8FA9D8;margin-bottom:16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.crumb a:hover{color:#fff}
+.crumb b{color:#C9DAF2;font-weight:500}
+.hero-sub .lead{color:#C9DAF2}
+
+/* ---------- stats ---------- */
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px 20px 22px;text-align:center;position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s}
+.stat:hover{transform:translateY(-5px);box-shadow:var(--shadow-lift)}
+.stat::before{content:"";position:absolute;top:0;left:20%;right:20%;height:3px;background:linear-gradient(90deg,var(--sky),var(--navy));border-radius:0 0 4px 4px}
+.stat b{display:block;font-family:var(--font-display);font-size:clamp(26px,3vw,34px);font-weight:800;color:var(--navy)}
+.stat b small{font-size:.6em;color:var(--sky)}
+.stat span{font-size:13px;color:var(--muted);font-weight:500}
+@media(max-width:920px){.stats{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- about split ---------- */
+.split{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(32px,5vw,64px);align-items:center}
+.split-media{position:relative}
+.split-media img{border-radius:var(--radius);box-shadow:var(--shadow-lift);aspect-ratio:4/3.4;object-fit:cover;width:100%}
+.split-media .tag-exp{position:absolute;right:-18px;bottom:-24px;background:var(--navy);color:#fff;border-radius:16px;padding:20px 24px;box-shadow:var(--shadow-lift);max-width:230px}
+.tag-exp b{font-family:var(--font-display);font-size:34px;font-weight:800;color:#fff;display:block;line-height:1}
+.tag-exp b small{color:var(--sky);font-size:.6em}
+.tag-exp span{font-size:12.5px;color:#BFD3EE;line-height:1.45;display:block;margin-top:6px}
+.checks{margin-top:22px;display:grid;gap:12px}
+.checks li{display:flex;gap:12px;align-items:flex-start;font-size:15.5px;color:#33415E}
+.checks .ck{flex:none;width:22px;height:22px;border-radius:50%;background:var(--sky-soft);color:var(--sky);display:grid;place-items:center;font-size:12px;font-weight:800;margin-top:2px}
+@media(max-width:880px){.split{grid-template-columns:1fr}.split-media .tag-exp{right:12px;bottom:-20px}}
+
+/* ---------- cards dịch vụ ---------- */
+.svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.svc{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s}
+.svc:hover{transform:translateY(-8px);box-shadow:var(--shadow-lift)}
+.svc-img{position:relative;aspect-ratio:16/10.5;overflow:hidden}
+.svc-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.svc:hover .svc-img img{transform:scale(1.07)}
+.svc-img::after{content:"";position:absolute;inset:auto 0 0 0;height:50%;background:linear-gradient(transparent,rgba(14,27,61,.55))}
+.svc-num{position:absolute;top:14px;left:14px;z-index:2;background:rgba(255,255,255,.92);color:var(--navy);font-family:var(--font-display);font-weight:800;font-size:13px;padding:5px 12px;border-radius:999px;letter-spacing:.05em}
+.svc-body{padding:22px 22px 24px;display:flex;flex-direction:column;flex:1}
+.svc-body p{font-size:14.5px;color:var(--muted);margin:10px 0 18px;flex:1}
+.svc-link{font-size:14.5px;font-weight:700;color:var(--sky);display:inline-flex;align-items:center;gap:7px}
+.svc-link svg{transition:transform .25s}
+.svc:hover .svc-link svg{transform:translateX(5px)}
+@media(max-width:1020px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.svc-grid{grid-template-columns:1fr}}
+
+/* ---------- dự án ---------- */
+.filter-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px}
+.chip{padding:9px 20px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-size:14px;font-weight:600;color:var(--muted);transition:all .25s}
+.chip:hover{border-color:var(--sky);color:var(--sky)}
+.chip.on{background:var(--navy);border-color:var(--navy);color:#fff;box-shadow:0 6px 16px rgba(27,47,138,.25)}
+.prj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.prj{position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:4/3;cursor:pointer;box-shadow:var(--shadow)}
+.prj img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.prj:hover img{transform:scale(1.08)}
+.prj::after{content:"";position:absolute;inset:0;background:linear-gradient(185deg,transparent 30%,rgba(14,25,70,.88) 88%)}
+.prj-info{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:20px;transform:translateY(6px);transition:transform .35s}
+.prj:hover .prj-info{transform:translateY(0)}
+.prj-info .pt{display:inline-block;background:var(--sky);color:#fff;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:999px;margin-bottom:10px}
+.prj-info h4{font-family:var(--font-display);color:#fff;font-size:18px;font-weight:700;line-height:1.3}
+.prj-info .pm{display:flex;gap:14px;margin-top:8px;font-size:13px;color:#BFD3EE}
+.prj-info .pm b{color:#fff;font-weight:600}
+@media(max-width:920px){.prj-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.prj-grid{grid-template-columns:1fr}}
+
+/* ---------- quy trình ---------- */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:step}
+.step{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:var(--radius);padding:28px 24px;position:relative;transition:background .3s,transform .3s}
+.step:hover{background:rgba(255,255,255,.11);transform:translateY(-5px)}
+.step::before{counter-increment:step;content:"0" counter(step);font-family:var(--font-display);font-weight:800;font-size:15px;color:var(--sky);background:rgba(46,155,214,.16);border:1px solid rgba(46,155,214,.45);width:44px;height:44px;border-radius:12px;display:grid;place-items:center;margin-bottom:18px}
+.step h4{font-family:var(--font-display);font-size:18px;font-weight:700;color:#fff;margin-bottom:8px}
+.step p{font-size:14px;color:#BFD3EE}
+@media(max-width:920px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.steps{grid-template-columns:1fr}}
+
+/* ---------- đối tác ---------- */
+.partners{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+.partner{border:1px solid var(--line);background:#fff;border-radius:14px;padding:16px 26px;font-family:var(--font-display);font-weight:700;font-size:15.5px;color:var(--muted);letter-spacing:.02em;transition:all .3s}
+.partner:hover{color:var(--navy);border-color:var(--sky);transform:translateY(-3px);box-shadow:var(--shadow)}
+
+/* ---------- blog ---------- */
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.post{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:transform .35s,box-shadow .35s;display:flex;flex-direction:column}
+.post:hover{transform:translateY(-7px);box-shadow:var(--shadow-lift)}
+.post-img{aspect-ratio:16/9;overflow:hidden}
+.post-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.post:hover .post-img img{transform:scale(1.06)}
+.post-body{padding:20px 22px 24px;flex:1;display:flex;flex-direction:column}
+.post-cat{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sky);margin-bottom:10px}
+.post h4{font-family:var(--font-display);font-size:17.5px;font-weight:700;line-height:1.4;color:var(--ink);transition:color .25s}
+.post:hover h4{color:var(--navy)}
+.post p{font-size:14px;color:var(--muted);margin-top:10px;flex:1}
+.post-meta{margin-top:16px;font-size:12.5px;color:#93A3BC;display:flex;gap:14px}
+@media(max-width:920px){.blog-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.blog-grid{grid-template-columns:1fr}}
+
+/* ---------- CTA band ---------- */
+.cta-band{position:relative;overflow:hidden;border-radius:26px;background:linear-gradient(120deg,var(--navy-deep),var(--navy) 55%,#2E58C8);color:#fff;padding:clamp(44px,6vw,72px) clamp(28px,6vw,80px);display:flex;align-items:center;justify-content:space-between;gap:36px;flex-wrap:wrap}
+.cta-band::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:52px 52px;mask-image:linear-gradient(115deg,transparent 40%,black)}
+.cta-band>*{position:relative;z-index:2}
+.cta-band h3{font-family:var(--font-display);font-size:clamp(24px,3.2vw,34px);font-weight:800;max-width:520px;line-height:1.25}
+.cta-band p{color:#BFD3EE;margin-top:10px;max-width:480px}
+
+/* ---------- bảng thông số ---------- */
+.spec-table{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);font-size:15px}
+.spec-table th{background:var(--navy);color:#fff;text-align:left;padding:15px 20px;font-family:var(--font-display);font-weight:700;font-size:14px;letter-spacing:.04em}
+.spec-table td{padding:14px 20px;border-bottom:1px solid var(--cloud);color:#33415E}
+.spec-table tr:last-child td{border-bottom:none}
+.spec-table tr:hover td{background:var(--sky-soft)}
+.spec-table td:first-child{font-weight:600;color:var(--navy)}
+.table-scroll{overflow-x:auto;border-radius:var(--radius)}
+
+/* ---------- gallery ---------- */
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.gallery img{border-radius:14px;aspect-ratio:4/3;object-fit:cover;width:100%;transition:transform .4s,box-shadow .4s;cursor:pointer}
+.gallery img:hover{transform:scale(1.03);box-shadow:var(--shadow-lift)}
+@media(max-width:720px){.gallery{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- benefit ---------- */
+.benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.benefit{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px 26px;transition:transform .3s,box-shadow .3s}
+.benefit:hover{transform:translateY(-5px);box-shadow:var(--shadow-lift)}
+.benefit .bi{width:52px;height:52px;border-radius:14px;background:var(--sky-soft);color:var(--sky);display:grid;place-items:center;margin-bottom:18px}
+.benefit h4{font-family:var(--font-display);font-size:17.5px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.benefit p{font-size:14.5px;color:var(--muted)}
+@media(max-width:920px){.benefits{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.benefits{grid-template-columns:1fr}}
+
+/* ---------- chi tiết dự án / bài viết ---------- */
+.detail-layout{display:grid;grid-template-columns:1fr 340px;gap:clamp(30px,4vw,56px);align-items:start}
+.detail-hero img{border-radius:var(--radius);width:100%;aspect-ratio:16/8.5;object-fit:cover;box-shadow:var(--shadow-lift)}
+.article{font-size:16.5px;color:#33415E}
+.article h2{font-family:var(--font-display);font-size:24px;color:var(--navy);margin:36px 0 14px;font-weight:700}
+.article h3{font-family:var(--font-display);font-size:19px;color:var(--navy);margin:28px 0 10px;font-weight:700}
+.article p{margin-bottom:16px}
+.article ul{margin:0 0 16px 4px;display:grid;gap:8px}
+.article ul li{padding-left:26px;position:relative}
+.article ul li::before{content:"";position:absolute;left:4px;top:10px;width:8px;height:8px;background:var(--sky);clip-path:polygon(0 100%,50% 0,100% 100%)}
+.article blockquote{border-left:3px solid var(--sky);background:var(--sky-soft);padding:18px 22px;border-radius:0 14px 14px 0;margin:22px 0;color:var(--navy);font-weight:500}
+.side-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);position:sticky;top:100px}
+.side-card h4{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--navy);margin-bottom:16px;padding-bottom:12px;border-bottom:1px dashed var(--line)}
+.meta-row{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--cloud);font-size:14.5px}
+.meta-row:last-of-type{border-bottom:none}
+.meta-row i{font-style:normal;color:var(--muted)}
+.meta-row b{color:var(--navy);font-weight:600;text-align:right}
+.side-card .btn{width:100%;justify-content:center;margin-top:18px}
+@media(max-width:880px){.detail-layout{grid-template-columns:1fr}.side-card{position:static}}
+
+/* ---------- liên hệ ---------- */
+.contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(30px,4vw,56px);align-items:start}
+.c-cards{display:grid;gap:16px}
+.c-card{display:flex;gap:18px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;transition:transform .3s,box-shadow .3s}
+.c-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift)}
+.c-card .ci{flex:none;width:50px;height:50px;border-radius:14px;background:var(--sky-soft);color:var(--sky);display:grid;place-items:center}
+.c-card h4{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--navy)}
+.c-card p{font-size:14.5px;color:var(--muted);margin-top:3px}
+.c-card p a{color:var(--sky);font-weight:600}
+.form-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:clamp(26px,4vw,40px);box-shadow:var(--shadow-lift)}
+.form-card h3{margin-bottom:6px}
+.form-card>p{font-size:14.5px;color:var(--muted);margin-bottom:24px}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.f-field{display:grid;gap:7px;margin-bottom:14px}
+.f-row .f-field{margin-bottom:0}
+.f-field label{font-size:13.5px;font-weight:600;color:var(--navy)}
+.f-field input,.f-field select,.f-field textarea{font-family:inherit;font-size:15px;padding:13px 16px;border:1.5px solid var(--line);border-radius:12px;background:var(--cloud);transition:border-color .25s,background .25s,box-shadow .25s;width:100%;color:var(--ink)}
+.f-field input:focus,.f-field select:focus,.f-field textarea:focus{outline:none;border-color:var(--sky);background:#fff;box-shadow:0 0 0 4px rgba(46,155,214,.14)}
+.map-embed{margin-top:var(--sec);border-radius:22px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line)}
+.map-embed iframe{width:100%;height:420px;border:0;display:block}
+@media(max-width:880px){.contact-grid{grid-template-columns:1fr}.f-row{grid-template-columns:1fr}}
+
+/* ---------- pháp lý ---------- */
+.legal-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px}
+
+/* ---------- footer ---------- */
+.footer{background:var(--navy-deep);color:#AFC3E4;position:relative}
+.footer::before{content:"";position:absolute;top:0;left:0;right:0;height:34px;background:var(--paper);clip-path:polygon(0 0,100% 0,100% 40%,50% 100%,0 40%)}
+.footer .top{padding-top:calc(var(--sec) + 20px);padding-bottom:48px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px}
+.footer .logo-f{height:46px;width:auto;margin-bottom:18px;background:#fff;border-radius:10px;padding:6px 10px}
+.footer p{font-size:14.5px;line-height:1.7}
+.footer h5{font-family:var(--font-display);color:#fff;font-size:15px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:18px}
+.footer ul{display:grid;gap:11px;font-size:14.5px}
+.footer ul a{transition:color .2s,padding-left .2s}
+.footer ul a:hover{color:var(--sky);padding-left:5px}
+.footer .fi{display:flex;gap:12px;align-items:flex-start;margin-bottom:13px;font-size:14.5px}
+.footer .fi svg{flex:none;margin-top:3px;color:var(--sky)}
+.footer .bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:22px;padding-bottom:22px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13.5px}
+.footer .bottom a:hover{color:var(--sky)}
+@media(max-width:920px){.footer .top{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.footer .top{grid-template-columns:1fr}}
+
+/* ---------- router & reveal ---------- */
+.page{display:none}
+.page.on{display:block;animation:pagein .5s cubic-bezier(.22,1,.36,1)}
+@keyframes pagein{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+:focus-visible{outline:3px solid var(--sky);outline-offset:2px;border-radius:4px}
+
+/* nút nổi */
+.float-call{position:fixed;right:22px;bottom:22px;z-index:90;display:grid;gap:12px}
+.float-call a{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;color:#fff;box-shadow:0 10px 24px rgba(14,27,61,.3);transition:transform .25s}
+.float-call a:hover{transform:scale(1.1)}
+.fc-zalo{background:#0068FF}
+.fc-phone{background:var(--sky);animation:ring 2.4s infinite}
+@keyframes ring{0%,100%{box-shadow:0 0 0 0 rgba(46,155,214,.5)}50%{box-shadow:0 0 0 14px rgba(46,155,214,0)}}
+</style>
+</head>
+<body>
+
+<!-- ======================= HEADER ======================= -->
+<header class="header" id="header">
+  <div class="wrap">
+    <a href="#/" class="logo" aria-label="Nhà Bạt Nguyễn Bình">
+      <img src="https://nguyenbinh.com/wp-content/uploads/2023/01/logo-png.png" alt="Logo Nguyễn Bình">
+    </a>
+    <nav aria-label="Menu chính">
+      <ul class="nav" id="nav">
+        <li><a href="#/gioi-thieu" data-nav="gioi-thieu">Về Nguyễn Bình</a></li>
+        <li><a href="#/nha-bat" data-nav="nha-bat">Cho Thuê Nhà Bạt</a></li>
+        <li>
+          <a href="#/dich-vu" data-nav="dich-vu">Dịch Vụ <span class="caret"></span></a>
+          <ul class="dropdown">
+            <li><a href="#/dich-vu/su-kien">Cho thuê Nhà Bạt Sự Kiện</a></li>
+            <li><a href="#/dich-vu/trien-lam">Cho thuê Nhà Bạt Triển Lãm</a></li>
+            <li><a href="#/dich-vu/kho-tam">Cho Thuê Kho Tạm</a></li>
+            <li><a href="#/dich-vu/may-lanh">Cho thuê Máy Lạnh Công Nghiệp</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#/du-an" data-nav="du-an">Dự Án Nổi Bật <span class="caret"></span></a>
+          <ul class="dropdown">
+            <li><a href="#/du-an">Tất cả dự án</a></li>
+            <li><a href="#/du-an?type=su-kien">Dự án Sự kiện</a></li>
+            <li><a href="#/du-an?type=trien-lam">Dự án Triển lãm</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#/kien-thuc" data-nav="kien-thuc">Kiến Thức <span class="caret"></span></a>
+          <ul class="dropdown">
+            <li><a href="#/kien-thuc?cat=to-chuc-su-kien">Tổ chức Sự kiện</a></li>
+            <li><a href="#/kien-thuc?cat=thiet-bi">Thiết Bị &amp; Phụ Kiện Sự Kiện</a></li>
+            <li><a href="#/kien-thuc?cat=cam-nang">Cẩm nang nhà bạt</a></li>
+          </ul>
+        </li>
+        <li><a href="#/lien-he" data-nav="lien-he">Liên Hệ</a></li>
+      </ul>
+    </nav>
+    <div style="display:flex;align-items:center;gap:12px">
+      <a class="hotline" href="tel:0937327777"><span class="dot"></span><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg><span class="txt">0937 327 777</span></a>
+      <button class="burger" id="burger" aria-label="Mở menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="app">
+
+<!-- ======================= TRANG CHỦ ======================= -->
+<section class="page" data-page="home" id="p-home">
+  <div class="hero">
+    <div class="hero-bg"><img src="https://nguyenbinh.com/wp-content/uploads/2023/06/cho-thue-nha-bat-khong-gian-11.jpg" alt="Nhà bạt không gian Nguyễn Bình"></div>
+    <div class="hero-grid"></div>
+    <div class="wrap hero-inner">
+      <span class="hero-badge">Từ 2009 · Hơn 400 dự án toàn quốc</span>
+      <h1 class="h1">Nhà bạt không gian<br>cho mọi quy mô <em>sự kiện</em><br>và <em>công nghiệp</em></h1>
+      <p class="sub">Đơn vị cung cấp nhà bạt chính thức cho Trung tâm Hội chợ Triển lãm SECC và Nhà Thi Đấu Phú Thọ. Thi công nhanh, an toàn, đúng tiến độ.</p>
+      <div class="hero-ctas">
+        <a class="btn btn--sky" href="#/lien-he">Nhận báo giá ngay <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn--ghost" href="#/du-an">Xem dự án nổi bật</a>
+      </div>
+      <div class="spec-strip">
+        <div class="spec"><i>Khẩu độ</i><b>10 – 40 m</b></div>
+        <div class="spec"><i>Kết cấu</i><b>Nhôm 6061-T6</b></div>
+        <div class="spec"><i>Bạt phủ</i><b>PVC 2 lớp chống UV</b></div>
+        <div class="spec"><i>Lắp đặt</i><b>24 – 72 giờ</b></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="sec" style="padding-top:clamp(48px,6vw,72px)">
+    <div class="wrap">
+      <div class="stats">
+        <div class="stat reveal"><b><span data-count="15">0</span><small>+</small></b><span>Năm kinh nghiệm</span></div>
+        <div class="stat reveal d1"><b><span data-count="400">0</span><small>+</small></b><span>Dự án hoàn thành</span></div>
+        <div class="stat reveal d2"><b><span data-count="30000">0</span><small> m²</small></b><span>Nhà bạt sẵn kho</span></div>
+        <div class="stat reveal d3"><b><span data-count="50">0</span><small>+</small></b><span>Nhân sự</span></div>
+        <div class="stat reveal d2"><b><span data-count="4">0</span></b><span>Kho xưởng</span></div>
+        <div class="stat reveal d3"><b><span data-count="3000">0</span><small> m²</small></b><span>Diện tích kho</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Về chúng tôi -->
+  <div class="sec sec--cloud">
+    <div class="wrap split">
+      <div class="split-media reveal">
+        <img src="https://nguyenbinh.com/wp-content/uploads/2024/07/nha-bat-nguyen-binh-gioi-thieu-scaled.jpg" alt="Thi công nhà bạt Nguyễn Bình">
+        <div class="tag-exp"><b>15<small>+</small></b><span>năm thi công nhà bạt triển lãm, sự kiện, kho tạm</span></div>
+      </div>
+      <div class="reveal d1">
+        <span class="eyebrow">Về chúng tôi</span>
+        <h2 class="h2">Đối tác nhà bạt tin cậy của các thương hiệu hàng đầu</h2>
+        <p class="lead">Công ty Nguyễn Bình thành lập từ năm 2009, chuyên cung cấp giải pháp tư vấn và lắp đặt nhà bạt không gian chất lượng cao trên toàn quốc.</p>
+        <ul class="checks">
+          <li><span class="ck">✓</span>Đơn vị cung cấp nhà bạt chính thức cho SECC &amp; Nhà Thi Đấu Phú Thọ</li>
+          <li><span class="ck">✓</span>Mỗi dự án hoàn thành chính xác, an toàn và đúng tiến độ cam kết</li>
+          <li><span class="ck">✓</span>Hệ thống 4 kho xưởng, 30.000 m² nhà bạt sẵn sàng triển khai</li>
+        </ul>
+        <div style="margin-top:30px"><a class="btn btn--navy" href="#/gioi-thieu">Tìm hiểu về Nguyễn Bình <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+  <div class="ridge"></div>
+
+  <!-- Dịch vụ -->
+  <div class="sec">
+    <div class="wrap">
+      <div class="sec-head sec-head--center reveal">
+        <span class="eyebrow">Dịch vụ</span>
+        <h2 class="h2">Dịch vụ của chúng tôi</h2>
+        <p class="lead">Bốn nhóm giải pháp trọn gói — từ khảo sát, thiết kế đến thi công và bảo trì trong suốt thời gian thuê.</p>
+      </div>
+      <div class="svc-grid" id="home-services"></div>
+    </div>
+  </div>
+
+  <!-- Dự án -->
+  <div class="sec sec--cloud">
+    <div class="wrap">
+      <div class="sec-head reveal" style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap">
+        <div>
+          <span class="eyebrow">Dự án</span>
+          <h2 class="h2">Những dự án nổi bật gần đây</h2>
+        </div>
+        <a class="btn btn--outline" href="#/du-an">Xem tất cả dự án</a>
+      </div>
+      <div class="prj-grid" id="home-projects"></div>
+    </div>
+  </div>
+
+  <!-- Quy trình -->
+  <div class="sec sec--navy">
+    <div class="wrap">
+      <div class="sec-head sec-head--center reveal">
+        <span class="eyebrow">Quy trình</span>
+        <h2 class="h2">4 bước triển khai chuẩn Nguyễn Bình</h2>
+        <p class="lead">Quy trình khép kín giúp mọi dự án — từ 300 m² đến 6.000 m² — luôn đúng tiến độ.</p>
+      </div>
+      <div class="steps">
+        <div class="step reveal"><h4>Khảo sát &amp; tư vấn</h4><p>Tiếp nhận yêu cầu, khảo sát mặt bằng thực tế và tư vấn giải pháp phù hợp ngân sách.</p></div>
+        <div class="step reveal d1"><h4>Thiết kế &amp; báo giá</h4><p>Bản vẽ 2D/3D kèm phương án kết cấu, báo giá minh bạch theo hạng mục trong 24 giờ.</p></div>
+        <div class="step reveal d2"><h4>Thi công lắp đặt</h4><p>Đội ngũ 50+ kỹ thuật viên lắp đặt nhanh 24–72 giờ, giám sát an toàn xuyên suốt.</p></div>
+        <div class="step reveal d3"><h4>Nghiệm thu &amp; bảo trì</h4><p>Nghiệm thu cùng khách hàng, trực bảo trì 24/7 trong suốt thời gian diễn ra sự kiện.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Đối tác -->
+  <div class="sec">
+    <div class="wrap">
+      <div class="sec-head sec-head--center reveal">
+        <span class="eyebrow">Đối tác</span>
+        <h2 class="h2">Đồng hành cùng các thương hiệu hàng đầu</h2>
+      </div>
+      <div class="partners reveal d1">
+        <span class="partner">SECC</span><span class="partner">Nhà Thi Đấu Phú Thọ</span><span class="partner">Techcombank</span><span class="partner">P&amp;G</span><span class="partner">Herbalife</span><span class="partner">Vietravel</span><span class="partner">VNG · GameVerse</span><span class="partner">ĐH Bách Khoa TP.HCM</span><span class="partner">Samil Vietnam</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blog -->
+  <div class="sec sec--cloud">
+    <div class="wrap">
+      <div class="sec-head reveal" style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap">
+        <div>
+          <span class="eyebrow">Cẩm nang</span>
+          <h2 class="h2">Kiến thức tổ chức sự kiện</h2>
+        </div>
+        <a class="btn btn--outline" href="#/kien-thuc">Xem tất cả bài viết</a>
+      </div>
+      <div class="blog-grid" id="home-blog"></div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="sec">
+    <div class="wrap">
+      <div class="cta-band reveal">
+        <div>
+          <h3>Bạn cần nhà bạt cho sự kiện hoặc kho tạm sắp tới?</h3>
+          <p>Gửi yêu cầu ngay hôm nay — đội ngũ Nguyễn Bình sẽ khảo sát và báo giá trong vòng 24 giờ.</p>
+        </div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap">
+          <a class="btn btn--sky" href="tel:0937327777">Gọi 0937 327 777</a>
+          <a class="btn btn--ghost" href="#/lien-he">Gửi yêu cầu báo giá</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= GIỚI THIỆU ======================= -->
+<section class="page" data-page="gioi-thieu">
+  <div class="hero-sub">
+    <div class="wrap">
+      <div class="crumb"><a href="#/">Trang chủ</a> / <b>Về Nguyễn Bình</b></div>
+      <h1 class="h1">Về Nguyễn Bình</h1>
+      <p class="lead">15+ năm cung cấp giải pháp nhà bạt không gian — chính xác, an toàn, đúng tiến độ.</p>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="wrap split">
+      <div class="reveal">
+        <span class="eyebrow">Câu chuyện</span>
+        <h2 class="h2">Khởi đầu từ 2009, dẫn đầu khu vực phía Nam</h2>
+        <p class="lead" style="max-width:none">Công ty Nguyễn Bình được thành lập từ năm 2009, chuyên cung cấp giải pháp tư vấn và lắp đặt nhà bạt không gian chất lượng cao. Với hơn 15 năm kinh nghiệm, chúng tôi tự hào là đơn vị thi công hàng đầu khu vực, đảm bảo mỗi dự án được hoàn thành chính xác và đúng tiến độ.</p>
+        <p class="lead" style="max-width:none;margin-top:12px">Chúng tôi luôn hướng đến việc nâng cao chất lượng dịch vụ và mang lại giá trị tối đa cho khách hàng — từ sự kiện văn hóa, hội chợ triển lãm quốc tế đến kho tạm công nghiệp dài hạn.</p>
+      </div>
+      <div class="split-media reveal d1">
+        <img src="https://nguyenbinh.com/wp-content/uploads/2024/07/nha-bat-nguyen-binh-1.jpg" alt="Nhà bạt Nguyễn Bình">
+        <div class="tag-exp"><b>400<small>+</small></b><span>dự án đã hoàn thành trên toàn quốc</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="sec sec--cloud">
+    <div class="wrap">
+      <div class="sec-head sec-head--center reveal">
+        <span class="eyebrow">Hồ sơ năng lực</span>
+        <h2 class="h2">Năng lực đã được kiểm chứng</h2>
+        <p class="lead">Chúng tôi tự hào là đơn vị cung cấp nhà bạt chính thức cho Trung Tâm Hội Chợ Triển Lãm SECC và Nhà Thi Đấu Phú Thọ.</p>
+      </div>
+      <div class="benefits">
+        <div class="benefit reveal"><div class="bi"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 3 8v13h18V8l-9-6z"/><path d="M3 8h18"/></svg></div><h4>Đối tác chính thức SECC</h4><p>Cung cấp nhà bạt cho các kỳ hội chợ triển lãm quốc tế quy mô hàng chục nghìn m² tại SECC.</p></div>
+        <div class="benefit reveal d1"><div class="bi"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M8 14 6 22l6-3 6 3-2-8"/></svg></div><h4>Nhà Thi Đấu Phú Thọ</h4><p>Đồng hành cùng các sự kiện thể thao – giải trí lớn tại Nhà Thi Đấu Phú Thọ, TP.HCM.</p></div>
+        <div class="benefit reveal d2"><div class="bi"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7 10 17l-5-5"/></svg></div><h4>An toàn là ưu tiên số 1</h4><p>Kết cấu tính toán tải trọng gió, quy trình lắp đặt giám sát an toàn nghiêm ngặt từng công đoạn.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="wrap split">
+      <div class="split-media reveal">
+        <img src="https://nguyenbinh.com/wp-content/uploads/2024/07/co-so-ha-tang-nha-bat-nguyen-binh-1-1024x838.jpg" alt="Cơ sở hạ tầng Nguyễn Bình">
+      </div>
+      <div class="reveal d1">
+        <span class="eyebrow">Cơ sở hạ tầng</span>
+        <h2 class="h2">Kho xưởng &amp; đội ngũ sẵn sàng mọi lúc</h2>
+        <p class="lead" style="max-width:none">Nguyễn Bình liên tục nâng cấp dịch vụ, phát triển nhân sự và cơ sở vật chất — đảm bảo các dự án thi công nhanh chóng, an toàn, chất lượng cao và đáp ứng mọi yêu cầu khắt khe nhất.</p>
+        <div class="stats" style="grid-template-columns:repeat(2,1fr);margin-top:28px">
+          <div class="stat"><b><span data-count="3000">0</span><small> m²</small></b><span>Kho xưởng</span></div>
+          <div class="stat"><b><span data-count="30000">0</span><small> m²</small></b><span>Nhà bạt sẵn có</span></div>
+          <div class="stat"><b><span data-count="50">0</span><small>+</small></b><span>Nhân sự kỹ thuật</span></div>
+          <div class="stat"><b><span data-count="4">0</span></b><span>Kho trên toàn quốc</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sec" style="padding-top:0">
+    <div class="wrap"><div class="cta-band reveal">
+      <div><h3>Tải hồ sơ năng lực Nguyễn Bình</h3><p>Đầy đủ chứng chỉ kết cấu, danh mục dự án và thông số kỹ thuật thiết bị.</p></div>
+      <a class="btn btn--sky" href="#/lien-he">Yêu cầu hồ sơ năng lực</a>
+    </div></div>
+  </div>
+</section>
+
+<!-- ======================= CHO THUÊ NHÀ BẠT ======================= -->
+<section class="page" data-page="nha-bat">
+  <div class="hero-sub">
+    <div class="wrap">
+      <div class="crumb"><a href="#/">Trang chủ</a> / <b>Cho thuê Nhà bạt</b></div>
+      <h1 class="h1">Cho thuê Nhà bạt Không gian</h1>
+      <p class="lead">Giải pháp không gian linh hoạt: dựng nhanh, chịu tải gió tốt, tùy biến từ 100 m² đến hơn 10.000 m².</p>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="wrap split">
+      <div class="reveal">
+        <span class="eyebrow">Giải pháp</span>
+        <h2 class="h2">Không gian lớn, dựng trong vài ngày</h2>
+        <p class="lead" style="max-width:none">Nhà bạt không gian (clear-span) sử dụng khung nhôm cường độ cao, không cột giữa — giải phóng toàn bộ diện tích sàn cho gian hàng, sân khấu hoặc hàng hóa. Mọi cấu kiện được sản xuất mô-đun, cho phép nối dài không giới hạn theo bước gian 5 m.</p>
+        <ul class="checks">
+          <li><span class="ck">✓</span>Khẩu độ 10 / 15 / 20 / 25 / 30 / 40 m — không cột giữa</li>
+          <li><span class="ck">✓</span>Bạt PVC 2 lớp chống UV, chống cháy lan tiêu chuẩn B1</li>
+          <li><span class="ck">✓</span>Chịu gió tới cấp 8, có neo đất hoặc đối trọng bê tông</li>
+          <li><span class="ck">✓</span>Tùy chọn: vách kính, cửa cuốn, sàn gỗ, trần xuyên sáng, máy lạnh</li>
+        </ul>
+      </div>
+      <div class="split-media reveal d1"><img src="https://nguyenbinh.com/wp-content/uploads/2024/07/nha-bat-nguyen-binh-3-1024x768.jpg" alt="Nhà bạt không gian"></div>
+    </div>
+  </div>
+  <div class="sec sec--cloud">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="eyebrow">Thông số kỹ thuật</span><h2 class="h2">Bảng khẩu độ tiêu chuẩn</h2></div>
+      <div class="table-scroll reveal d1">
+        <table class="spec-table">
+          <thead><tr><th>Khẩu độ</th><th>Chiều cao mép</th><th>Chiều cao đỉnh</th><th>Bước gian</th><th>Ứng dụng phù hợp</th></tr></thead>
+          <tbody>
+            <tr><td>10 m</td><td>3,0 m</td><td>4,6 m</td><td>5 m</td><td>Tiệc cưới, activation, gian hàng nhỏ</td></tr>
+            <tr><td>15 m</td><td>4,0 m</td><td>6,2 m</td><td>5 m</td><td>Sự kiện doanh nghiệp, lễ khai trương</td></tr>
+            <tr><td>20 m</td><td>4,0 m</td><td>7,0 m</td><td>5 m</td><td>Triển lãm, hội chợ thương mại</td></tr>
+            <tr><td>25 m</td><td>4,0 m</td><td>7,8 m</td><td>5 m</td><td>Kho tạm công nghiệp, xưởng sản xuất</td></tr>
+            <tr><td>30 m</td><td>4,0 – 6,0 m</td><td>9,0 m</td><td>5 m</td><td>Concert, sự kiện thể thao trong nhà</td></tr>
+            <tr><td>40 m</td><td>6,0 m</td><td>11,5 m</td><td>5 m</td><td>Mega event, triển lãm quốc tế</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="eyebrow">Hình ảnh thực tế</span><h2 class="h2">Nhà bạt Nguyễn Bình tại công trình</h2></div>
+      <div class="gallery reveal d1">
+        <img src="https://nguyenbinh.com/wp-content/uploads/2023/06/cho-thue-nha-bat-khong-gian-11.jpg" alt="Nhà bạt không gian 1">
+        <img src="https://nguyenbinh.com/wp-content/uploads/2024/07/nha-bat-nguyen-binh-4-1024x683.jpg" alt="Nhà bạt không gian 2">
+        <img src="https://nguyenbinh.com/wp-content/uploads/2024/07/nha-bat-nguyen-binh-kho-tam-1-1024x683.jpg" alt="Nhà bạt kho tạm">
+        <img src="https://nguyenbinh.com/wp-content/uploads/2024/07/gameverse.jpg" alt="Nhà bạt sự kiện GameVerse">
+        <img src="https://nguyenbinh.com/wp-content/uploads/2024/07/sg-tex1.jpg" alt="Nhà bạt triển lãm SaigonTex">
+        <img src="https://nguyenbinh.com/wp-content/uploads/2024/07/nha-bat-nguyen-binh-gioi-thieu-scaled.jpg" alt="Thi công nhà bạt">
+      </div>
+    </div>
+  </div>
+  <div class="sec" style="padding-top:0">
+    <div class="wrap"><div class="cta-band reveal">
+      <div><h3>Cần tư vấn khẩu độ phù hợp mặt bằng?</h3><p>Gửi kích thước khu đất, chúng tôi đề xuất phương án và báo giá trong 24 giờ.</p></div>
+      <a class="btn btn--sky" href="#/lien-he">Nhận tư vấn miễn phí</a>
+    </div></div>
+  </div>
+</section>
+
+<!-- ======================= DỊCH VỤ (TỔNG QUAN) ======================= -->
+<section class="page" data-page="dich-vu">
+  <div class="hero-sub">
+    <div class="wrap">
+      <div class="crumb"><a href="#/">Trang chủ</a> / <b>Dịch vụ</b></div>
+      <h1 class="h1">Dịch vụ của Nguyễn Bình</h1>
+      <p class="lead">Bốn nhóm giải pháp trọn gói, một tiêu chuẩn thi công — nhanh, an toàn, đúng tiến độ.</p>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="wrap"><div class="svc-grid" id="all-services"></div></div>
+  </div>
+  <div class="sec sec--navy">
+    <div class="wrap">
+      <div class="sec-head sec-head--center reveal">
+        <span class="eyebrow">Cam kết</span>
+        <h2 class="h2">Vì sao khách hàng chọn Nguyễn Bình?</h2>
+      </div>
+      <div class="steps">
+        <div class="step reveal"><h4>Giá minh bạch</h4><p>Báo giá chi tiết theo hạng mục, không phát sinh ngoài hợp đồng.</p></div>
+        <div class="step reveal d1"><h4>Thiết bị sẵn kho</h4><p>30.000 m² nhà bạt tại 4 kho — sẵn sàng huy động cho dự án gấp.</p></div>
+        <div class="step reveal d2"><h4>Thi công thần tốc</h4><p>Lắp đặt 24–72 giờ tùy quy mô, kể cả ban đêm và ngày lễ.</p></div>
+        <div class="step reveal d3"><h4>Bảo trì 24/7</h4><p>Đội trực kỹ thuật túc trực suốt thời gian sự kiện diễn ra.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= DỊCH VỤ CON (TEMPLATE) ======================= -->
+<section class="page" data-page="dich-vu-con">
+  <div class="hero-sub">
+    <div class="wrap">
+      <div class="crumb"><a href="#/">Trang chủ</a> / <a href="#/dich-vu">Dịch vụ</a> / <b id="sv-crumb"></b></div>
+      <h1 class="h1" id="sv-title"></h1>
+      <p class="lead" id="sv-sub"></p>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="wrap split">
+      <div class="split-media reveal"><img id="sv-img" src="" alt=""></div>
+      <div class="reveal d1">
+        <span class="eyebrow">Giới thiệu dịch vụ</span>
+        <h2 class="h2" id="sv-h2"></h2>
+        <p class="lead" style="max-width:none" id="sv-desc"></p>
+        <ul class="checks" id="sv-points"></ul>
+        <div style="margin-top:28px"><a class="btn btn--navy" href="#/lien-he">Nhận báo giá dịch vụ này <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+  <div class="sec sec--cloud">
+    <div class="wrap">
+      <div class="sec-head sec-head--center reveal"><span class="eyebrow">Lợi ích</span><h2 class="h2">Vì sao chọn dịch vụ này?</h2></div>
+      <div class="benefits" id="sv-benefits"></div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="eyebrow">Hình ảnh</span><h2 class="h2">Dự án thực tế</h2></div>
+      <div class="gallery reveal d1" id="sv-gallery"></div>
+    </div>
+  </div>
+  <div class="sec" style="padding-top:0">
+    <div class="wrap"><div class="cta-band reveal">
+      <div><h3 id="sv-cta"></h3><p>Khảo sát miễn phí — báo giá trong 24 giờ làm việc.</p></div>
+      <div style="display:flex;gap:14px;flex-wrap:wrap"><a class="btn btn--sky" href="tel:0937327777">Gọi 0937 327 777</a><a class="btn btn--ghost" href="#/lien-he">Gửi yêu cầu</a></div>
+    </div></div>
+  </div>
+</section>
+
+<!-- ======================= DỰ ÁN LISTING ======================= -->
+<section class="page" data-page="du-an">
+  <div class="hero-sub">
+    <div class="wrap">
+      <div class="crumb"><a href="#/">Trang chủ</a> / <b>Dự án nổi bật</b></div>
+      <h1 class="h1">Dự án nổi bật</h1>
+      <p class="lead">Hơn 400 dự án sự kiện, triển lãm và kho tạm trên toàn quốc từ 2009 đến nay.</p>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="wrap">
+      <div class="filter-bar" id="prj-type-filter">
+        <button class="chip on" data-type="all">Tất cả</button>
+        <button class="chip" data-type="su-kien">Sự kiện</button>
+        <button class="chip" data-type="trien-lam">Triển lãm</button>
+      </div>
+      <div class="filter-bar" id="prj-year-filter" style="margin-top:-18px">
+        <button class="chip on" data-year="all">Mọi năm</button>
+        <button class="chip" data-year="2026">2026</button>
+        <button class="chip" data-year="2025">2025</button>
+        <button class="chip" data-year="2024">2024</button>
+        <button class="chip" data-year="2023">2023</button>
+        <button class="chip" data-year="2022">2022</button>
+        <button class="chip" data-year="2021">2021</button>
+      </div>
+      <div class="prj-grid" id="prj-list"></div>
+      <p id="prj-empty" style="display:none;text-align:center;color:var(--muted);padding:48px 0">Chưa có dự án nào khớp bộ lọc — thử chọn năm hoặc loại hình khác.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= DỰ ÁN CHI TIẾT (MẪU) ======================= -->
+<section class="page" data-page="du-an-chi-tiet">
+  <div class="hero-sub" style="padding-bottom:clamp(40px,5vw,64px)">
+    <div class="wrap">
+      <div class="crumb"><a href="#/">Trang chủ</a> / <a href="#/du-an">Dự án</a> / <b id="pd-crumb">Vietnam GameVerse 2024</b></div>
+      <h1 class="h1" id="pd-title">Vietnam GameVerse 2024</h1>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="wrap">
+      <div class="detail-hero reveal" style="margin-bottom:clamp(30px,4vw,52px)"><img id="pd-img" src="https://nguyenbinh.com/wp-content/uploads/2024/07/gameverse.jpg" alt="Vietnam GameVerse 2024"></div>
+      <div class="detail-layout">
+        <div class="article reveal" id="pd-body">
+          <h2>Tổng quan dự án</h2>
+          <p>Vietnam GameVerse 2024 — ngày hội game lớn nhất Việt Nam do VNG và các đối tác tổ chức — cần một không gian triển lãm ngoài trời quy mô 5.000 m² dựng hoàn thiện chỉ trong 5 ngày. Nguyễn Bình được chọn là đơn vị thi công toàn bộ hệ nhà bạt không gian cho sự kiện.</p>
+          <h2>Hạng mục thi công</h2>
+          <ul>
+            <li>Nhà bạt khẩu độ 30 m × 100 m làm khu triển lãm chính, không cột giữa</li>
+            <li>Nhà bạt 15 m × 40 m cho khu vực esports arena và khán đài</li>
+            <li>Hệ thống lối đi có mái che nối các phân khu, chống mưa tuyệt đối</li>
+            <li>Sàn gỗ công nghiệp toàn bộ diện tích, hệ thống điện và máy lạnh công nghiệp</li>
+          </ul>
+          <blockquote>Toàn bộ 5.000 m² được lắp dựng trong 120 giờ với 40 kỹ thuật viên làm việc 2 ca — bàn giao trước deadline 12 tiếng.</blockquote>
+          <h2>Kết quả</h2>
+          <p>Sự kiện đón hơn 50.000 lượt khách trong 2 ngày, các khu vực nhà bạt vận hành ổn định trong điều kiện nắng nóng và mưa lớn xen kẽ. Đây là năm thứ hai liên tiếp Nguyễn Bình đồng hành cùng GameVerse.</p>
+        </div>
+        <aside class="side-card reveal d1">
+          <h4>Thông tin dự án</h4>
+          <div class="meta-row"><i>Loại hình</i><b>Sự kiện</b></div>
+          <div class="meta-row"><i>Quy mô</i><b>5.000 m²</b></div>
+          <div class="meta-row"><i>Năm thi công</i><b>2024</b></div>
+          <div class="meta-row"><i>Địa điểm</i><b>TP. Hồ Chí Minh</b></div>
+          <div class="meta-row"><i>Thời gian lắp đặt</i><b>5 ngày</b></div>
+          <div class="meta-row"><i>Khẩu độ sử dụng</i><b>15 m &amp; 30 m</b></div>
+          <a class="btn btn--sky" href="#/lien-he">Báo giá dự án tương tự</a>
+        </aside>
+      </div>
+      <div style="margin-top:var(--sec)">
+        <div class="sec-head reveal"><span class="eyebrow">Dự án khác</span><h2 class="h2">Có thể bạn quan tâm</h2></div>
+        <div class="prj-grid" id="pd-related"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= KIẾN THỨC LISTING ======================= -->
+<section class="page" data-page="kien-thuc">
+  <div class="hero-sub">
+    <div class="wrap">
+      <div class="crumb"><a href="#/">Trang chủ</a> / <b>Kiến thức</b></div>
+      <h1 class="h1">Kiến thức &amp; Cẩm nang</h1>
+      <p class="lead">Kinh nghiệm tổ chức sự kiện, thiết bị và cẩm nang nhà bạt từ đội ngũ 15+ năm trong nghề.</p>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="wrap">
+      <div class="filter-bar" id="blog-filter">
+        <button class="chip on" data-cat="all">Tất cả</button>
+        <button class="chip" data-cat="to-chuc-su-kien">Tổ chức Sự kiện</button>
+        <button class="chip" data-cat="thiet-bi">Thiết Bị &amp; Phụ Kiện</button>
+        <button class="chip" data-cat="cam-nang">Cẩm nang nhà bạt</button>
+      </div>
+      <div class="blog-grid" id="blog-list"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= BÀI VIẾT CHI TIẾT (MẪU) ======================= -->
+<section class="page" data-page="bai-viet">
+  <div class="hero-sub" style="padding-bottom:clamp(40px,5vw,64px)">
+    <div class="wrap">
+      <div class="crumb"><a href="#/">Trang chủ</a> / <a href="#/kien-thuc">Kiến thức</a> / <b>Tổ chức Sự kiện</b></div>
+      <h1 class="h1" style="max-width:840px;font-size:clamp(28px,4vw,44px)">So sánh tổ chức sự kiện ngoài trời và trong nhà: Nên chọn hình thức nào?</h1>
+      <div class="crumb" style="margin:18px 0 0"><b>Nguyễn Bình</b> · 12/07/2026 · 8 phút đọc</div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="wrap">
+      <div class="detail-layout">
+        <div>
+          <div class="detail-hero reveal" style="margin-bottom:34px"><img src="https://nguyenbinh.com/wp-content/uploads/2026/02/So-sanh-to-chuc-su-kien-ngoai-troi-va-trong-nha-1.png" alt="So sánh sự kiện ngoài trời và trong nhà"></div>
+          <div class="article reveal">
+            <p>Nên tổ chức sự kiện ngoài trời hay trong nhà luôn là câu hỏi khiến nhiều doanh nghiệp băn khoăn khi lên kế hoạch. Mỗi hình thức có ưu thế riêng về không gian, chi phí và trải nghiệm khách mời. Bài viết này phân tích chi tiết để bạn chọn đúng ngay từ đầu.</p>
+            <h2>1. Sự kiện ngoài trời — tự do sáng tạo không gian</h2>
+            <p>Không gian mở cho phép quy mô gần như không giới hạn: sân khấu lớn, khu trải nghiệm, khu ẩm thực có thể bố trí thoải mái. Không khí thoáng đãng cũng tạo cảm giác gần gũi, phù hợp lễ hội, activation và concert.</p>
+            <ul>
+              <li>Quy mô linh hoạt, dễ mở rộng khu vực chức năng</li>
+              <li>Chi phí thuê mặt bằng thường thấp hơn trung tâm hội nghị</li>
+              <li>Rủi ro lớn nhất: thời tiết — cần phương án mái che dự phòng</li>
+            </ul>
+            <blockquote>Kinh nghiệm từ 400+ dự án: một hệ nhà bạt không gian dựng sẵn giúp sự kiện ngoài trời "miễn nhiễm" với mưa nắng mà vẫn giữ trọn không khí mở.</blockquote>
+            <h2>2. Sự kiện trong nhà — kiểm soát tuyệt đối</h2>
+            <p>Trung tâm hội nghị hoặc nhà thi đấu cho phép kiểm soát ánh sáng, âm thanh, nhiệt độ. Phù hợp hội nghị khách hàng, lễ trao giải, sự kiện cần trình chiếu chất lượng cao.</p>
+            <ul>
+              <li>Không phụ thuộc thời tiết, tiện nghi có sẵn</li>
+              <li>Giới hạn diện tích và giờ thuê; chi phí cao vào mùa cao điểm</li>
+              <li>Khó tạo khác biệt vì không gian đã định hình sẵn</li>
+            </ul>
+            <h2>3. Bảng so sánh nhanh</h2>
+            <div class="table-scroll"><table class="spec-table">
+              <thead><tr><th>Tiêu chí</th><th>Ngoài trời + nhà bạt</th><th>Trong nhà</th></tr></thead>
+              <tbody>
+                <tr><td>Quy mô</td><td>Không giới hạn, tùy mặt bằng</td><td>Theo sức chứa hội trường</td></tr>
+                <tr><td>Thời tiết</td><td>Chủ động với mái che nhà bạt</td><td>Không ảnh hưởng</td></tr>
+                <tr><td>Chi phí</td><td>Tối ưu với quy mô lớn</td><td>Cao vào mùa cao điểm</td></tr>
+                <tr><td>Sáng tạo concept</td><td>Tự do 100%</td><td>Giới hạn theo không gian sẵn có</td></tr>
+              </tbody>
+            </table></div>
+            <h2>4. Kết luận</h2>
+            <p>Nếu sự kiện của bạn trên 1.000 khách, cần không gian trải nghiệm đa dạng và ngân sách tối ưu — ngoài trời kết hợp nhà bạt không gian là lựa chọn đáng cân nhắc nhất. Liên hệ Nguyễn Bình để được tư vấn phương án mái che phù hợp quy mô của bạn.</p>
+          </div>
+        </div>
+        <aside class="side-card reveal d1">
+          <h4>Bài viết liên quan</h4>
+          <div id="post-related" style="display:grid;gap:16px"></div>
+          <a class="btn btn--sky" href="#/lien-he">Tư vấn tổ chức sự kiện</a>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= LIÊN HỆ ======================= -->
+<section class="page" data-page="lien-he">
+  <div class="hero-sub">
+    <div class="wrap">
+      <div class="crumb"><a href="#/">Trang chủ</a> / <b>Liên hệ</b></div>
+      <h1 class="h1">Liên hệ Nguyễn Bình</h1>
+      <p class="lead">Khảo sát miễn phí — báo giá chi tiết trong vòng 24 giờ làm việc.</p>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="wrap contact-grid">
+      <div class="c-cards reveal">
+        <div class="c-card"><div class="ci"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><h4>Địa chỉ văn phòng</h4><p>Số 2A, Đường 494, P. Tăng Nhơn Phú A,<br>TP. Thủ Đức, TP. Hồ Chí Minh</p></div></div>
+        <div class="c-card"><div class="ci"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg></div>
+          <div><h4>Hotline 24/7</h4><p><a href="tel:0937327777">0937 327 777</a> — hỗ trợ cả Zalo</p></div></div>
+        <div class="c-card"><div class="ci"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m2 7 10 6L22 7"/></svg></div>
+          <div><h4>Email báo giá</h4><p><a href="mailto:sales@nguyenbinh.com">sales@nguyenbinh.com</a></p></div></div>
+        <div class="c-card"><div class="ci"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+          <div><h4>Giờ làm việc</h4><p>Thứ 2 – Thứ 7: 8:00 – 17:30<br>Thi công &amp; bảo trì sự kiện: 24/7</p></div></div>
+      </div>
+      <div class="form-card reveal d1">
+        <h3 class="h3" style="font-size:24px">Gửi yêu cầu báo giá</h3>
+        <p>Điền thông tin bên dưới, chúng tôi phản hồi trong 24 giờ làm việc.</p>
+        <form onsubmit="event.preventDefault();alert('Cảm ơn bạn! Nguyễn Bình sẽ liên hệ trong 24 giờ làm việc.')">
+          <div class="f-row">
+            <div class="f-field"><label for="f-name">Họ và tên *</label><input id="f-name" required placeholder="Nguyễn Văn A"></div>
+            <div class="f-field"><label for="f-phone">Số điện thoại *</label><input id="f-phone" required type="tel" placeholder="09xx xxx xxx"></div>
+          </div>
+          <div class="f-field"><label for="f-email">Email</label><input id="f-email" type="email" placeholder="ban@congty.com"></div>
+          <div class="f-row">
+            <div class="f-field"><label for="f-service">Dịch vụ quan tâm</label>
+              <select id="f-service">
+                <option>Nhà bạt Sự kiện</option><option>Nhà bạt Triển lãm</option><option>Kho tạm dài hạn</option><option>Máy lạnh công nghiệp</option><option>Khác</option>
+              </select></div>
+            <div class="f-field"><label for="f-size">Diện tích dự kiến</label><input id="f-size" placeholder="VD: 1.000 m²"></div>
+          </div>
+          <div class="f-field"><label for="f-msg">Nội dung yêu cầu</label><textarea id="f-msg" rows="4" placeholder="Địa điểm, thời gian, yêu cầu đặc biệt..."></textarea></div>
+          <button class="btn btn--sky" type="submit" style="width:100%;justify-content:center">Gửi yêu cầu báo giá <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </form>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="map-embed reveal">
+        <iframe title="Bản đồ Nguyễn Bình" loading="lazy" src="https://www.google.com/maps?q=S%E1%BB%91%202A%20%C4%90%C6%B0%E1%BB%9Dng%20494%20T%C4%83ng%20Nh%C6%A1n%20Ph%C3%BA%20A%20Th%E1%BB%A7%20%C4%90%E1%BB%A9c&output=embed"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= PHÁP LÝ (TEMPLATE) ======================= -->
+<section class="page" data-page="phap-ly">
+  <div class="hero-sub" style="padding-bottom:clamp(40px,5vw,60px)">
+    <div class="wrap">
+      <div class="crumb"><a href="#/">Trang chủ</a> / <b id="lg-crumb">Pháp lý</b></div>
+      <h1 class="h1" id="lg-title" style="font-size:clamp(28px,4vw,44px)"></h1>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="wrap" style="max-width:840px">
+      <div class="legal-tabs">
+        <a class="chip" data-legal="chinh-sach" href="#/phap-ly/chinh-sach">Chính sách bảo mật</a>
+        <a class="chip" data-legal="mien-tru" href="#/phap-ly/mien-tru">Tuyên bố từ chối trách nhiệm</a>
+        <a class="chip" data-legal="cookie" href="#/phap-ly/cookie">Điều khoản sử dụng Cookie</a>
+      </div>
+      <div class="article" id="lg-body"></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ======================= FOOTER ======================= -->
+<footer class="footer">
+  <div class="wrap top">
+    <div>
+      <img class="logo-f" src="https://nguyenbinh.com/wp-content/uploads/2023/01/logo-png.png" alt="Nguyễn Bình">
+      <p>Nhà Bạt Nguyễn Bình là đơn vị hàng đầu chuyên cung cấp giải pháp thi công lắp đặt nhà bạt triển lãm và sự kiện tại Việt Nam.</p>
+    </div>
+    <div>
+      <h5>Dịch vụ</h5>
+      <ul>
+        <li><a href="#/dich-vu/su-kien">Cho thuê Nhà bạt Sự kiện</a></li>
+        <li><a href="#/dich-vu/trien-lam">Cho thuê Nhà bạt Triển lãm</a></li>
+        <li><a href="#/dich-vu/kho-tam">Cho thuê Kho tạm</a></li>
+        <li><a href="#/dich-vu/may-lanh">Máy lạnh Công nghiệp</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Khám phá</h5>
+      <ul>
+        <li><a href="#/gioi-thieu">Về Nguyễn Bình</a></li>
+        <li><a href="#/du-an">Dự án nổi bật</a></li>
+        <li><a href="#/kien-thuc">Kiến thức &amp; Cẩm nang</a></li>
+        <li><a href="#/lien-he">Liên hệ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Thông tin liên hệ</h5>
+      <div class="fi"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Số 2A, Đường 494, P. Tăng Nhơn Phú A, Thủ Đức, TP.HCM</span></div>
+      <div class="fi"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg><a href="tel:0937327777">0937 327 777</a></div>
+      <div class="fi"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m2 7 10 6L22 7"/></svg><a href="mailto:sales@nguyenbinh.com">sales@nguyenbinh.com</a></div>
+    </div>
+  </div>
+  <div class="wrap bottom">
+    <span>© 2026 nguyenbinh.com — Bản quyền thuộc Công ty Nhà Bạt Nguyễn Bình.</span>
+    <span><a href="#/phap-ly/chinh-sach">Chính sách bảo mật</a> · <a href="#/phap-ly/mien-tru">Từ chối trách nhiệm</a> · <a href="#/phap-ly/cookie">Cookie</a></span>
+  </div>
+</footer>
+
+<div class="float-call">
+  <a class="fc-zalo" href="https://zalo.me/0937327777" aria-label="Chat Zalo"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6 2 11c0 2.9 1.5 5.4 3.8 7.1L5 22l4.3-1.6c.9.2 1.8.3 2.7.3 5.5 0 10-4 10-9S17.5 2 12 2zm-4.5 12H5.2l3-4H5.7V8.5h4.4l-3 4h2.4V14zm4.6 0h-1.4V8.5h1.4V14zm5.2 0h-3.6v-1.2l2-2.3h-1.9V9h3.4v1.2l-2 2.3h2.1V14z"/></svg></a>
+  <a class="fc-phone" href="tel:0937327777" aria-label="Gọi ngay"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg></a>
+</div>
+
+<script>
+/* =============== DỮ LIỆU =============== */
+const IMG = 'https://nguyenbinh.com/wp-content/uploads/';
+
+const SERVICES = {
+  'su-kien': {
+    num:'01', name:'Nhà Bạt Sự Kiện', short:'Cho thuê Nhà Bạt Sự Kiện',
+    img: IMG+'2024/07/nha-bat-nguyen-binh-4-1024x683.jpg',
+    sub:'Không gian sự kiện ngoài trời linh hoạt — dựng nhanh, tháo gọn, tùy biến theo concept.',
+    h2:'Giải pháp tối ưu cho mọi sự kiện ngoài trời',
+    desc:'Được thiết kế để đáp ứng đa dạng nhu cầu sự kiện ngoài trời, nhà bạt sự kiện là lựa chọn linh hoạt và tối ưu nhất. Khả năng tùy chỉnh kích thước cùng việc lắp đặt nhanh chóng giúp nhà bạt sự kiện trở thành giải pháp ưu việt cho lễ khai trương, activation, concert, tiệc doanh nghiệp và lễ hội.',
+    points:['Khẩu độ 10–40 m, không cột giữa — tự do dàn dựng sân khấu','Tùy chọn trần xuyên sáng, vách kính, sàn gỗ, máy lạnh','Lắp đặt 24–72 giờ, thi công cả ban đêm'],
+    benefits:[['Dựng thần tốc','Đội ngũ 50+ kỹ thuật viên lắp đặt xuyên đêm, kịp mọi deadline sự kiện.'],['Chống mưa nắng tuyệt đối','Bạt PVC 2 lớp chống UV — sự kiện diễn ra trọn vẹn bất chấp thời tiết.'],['Tùy biến theo concept','Bạt trắng, trong suốt hoặc in thương hiệu; tích hợp đèn, âm thanh, sân khấu.']],
+    gallery:[IMG+'2024/07/gameverse.jpg', IMG+'2024/07/rapviet.jpg', IMG+'2024/07/masksingers.jpg', IMG+'2024/07/techcombank.jpg', IMG+'2024/07/vietravel.jpg', IMG+'2024/07/z5607735788808_e0f886fb173c293886a15cce0faa9e91.jpg'],
+    cta:'Sắp có sự kiện ngoài trời?'
+  },
+  'trien-lam': {
+    num:'02', name:'Nhà Bạt Triển Lãm', short:'Cho thuê Nhà Bạt Triển Lãm',
+    img: IMG+'2024/07/nha-bat-nguyen-binh-3-1024x768.jpg',
+    sub:'Mở rộng diện tích triển lãm không phụ thuộc vào sàn nhà hiện hữu — đối tác chính thức của SECC.',
+    h2:'Tăng diện tích triển lãm theo đúng nhu cầu',
+    desc:'Nhà bạt triển lãm là giải pháp hiệu quả để tăng diện tích không gian triển lãm, cho phép mở rộng quy mô mà không phụ thuộc vào diện tích sàn của các tòa nhà hiện hữu. Với khả năng tùy chỉnh kích thước linh hoạt, nhà bạt triển lãm của Nguyễn Bình giúp tối ưu hóa chi phí và đáp ứng mọi nhu cầu của nhà tổ chức.',
+    points:['Kinh nghiệm SaigonTex, HAWA Expo, VietFood tại SECC','Nối dài không giới hạn theo bước gian 5 m','Sàn, điện, máy lạnh, PCCC trọn gói một đầu mối'],
+    benefits:[['Chuẩn hội chợ quốc tế','Đáp ứng yêu cầu kỹ thuật của các kỳ triển lãm quốc tế tại SECC.'],['Mở rộng linh hoạt','Thêm 1.000–10.000 m² diện tích trưng bày chỉ trong vài ngày.'],['Tối ưu chi phí','Chi phí trên mỗi m² thấp hơn đáng kể so với thuê thêm sảnh cứng.']],
+    gallery:[IMG+'2024/07/sg-tex1.jpg', IMG+'2024/07/hawa.jpg', IMG+'2024/07/expo-2.jpg', IMG+'2024/07/expo.jpg', IMG+'2024/07/vietfood.jpg', IMG+'2024/07/sg-tex.jpg'],
+    cta:'Cần mở rộng diện tích triển lãm?'
+  },
+  'kho-tam': {
+    num:'03', name:'Kho Tạm Dài Hạn', short:'Cho Thuê Kho Tạm',
+    img: IMG+'2024/07/nha-bat-nguyen-binh-kho-tam-1-1024x683.jpg',
+    sub:'Tăng không gian lưu trữ cho nhà máy, công trường trong vài ngày — thuê linh hoạt theo tháng.',
+    h2:'Kho chứa hàng dựng nhanh, thuê linh hoạt',
+    desc:'Nhà bạt kho tạm là giải pháp linh hoạt và tiện lợi cho việc lưu trữ hàng hóa tạm thời với thiết kế dễ dàng lắp đặt và tháo gỡ. Dịch vụ thường được sử dụng trong các dự án xây dựng, sự kiện thương mại, hay khi doanh nghiệp cần tăng thêm không gian lưu trữ ngắn hạn trong nhà máy.',
+    points:['Khẩu độ 15–30 m phù hợp xe nâng và kệ hàng cao','Chống dột tuyệt đối, thông gió tự nhiên hoặc cưỡng bức','Hợp đồng thuê theo tháng — mở rộng, thu hẹp tùy tồn kho'],
+    benefits:[['Triển khai trong tuần','Có kho vận hành được chỉ sau 3–7 ngày kể từ ký hợp đồng.'],['Chi phí tối ưu','Rẻ hơn xây kho cứng nhiều lần, không tốn chi phí tháo dỡ hoàn trả.'],['An toàn hàng hóa','Bạt chống cháy lan B1, khóa an ninh, tùy chọn camera giám sát.']],
+    gallery:[IMG+'2024/07/nha-bat-nguyen-binh-kho-tam-1-1024x683.jpg', IMG+'2024/07/nha-bat-nguyen-binh-3-1024x768.jpg', IMG+'2024/07/nha-bat-nguyen-binh-4-1024x683.jpg', IMG+'2023/06/cho-thue-nha-bat-khong-gian-11.jpg', IMG+'2024/07/nha-bat-nguyen-binh-gioi-thieu-scaled.jpg', IMG+'2024/07/co-so-ha-tang-nha-bat-nguyen-binh-1-1024x838.jpg'],
+    cta:'Nhà máy đang thiếu chỗ chứa hàng?'
+  },
+  'may-lanh': {
+    num:'04', name:'Máy Lạnh Công Nghiệp', short:'Cho thuê Máy Lạnh Công Nghiệp',
+    img: IMG+'2023/06/cho-thue-nha-bat-khong-gian-11.jpg',
+    sub:'Làm mát không gian nhà bạt và sự kiện quy mô lớn — lắp đặt và vận hành trọn gói.',
+    h2:'Không gian sự kiện mát lạnh giữa mùa nóng',
+    desc:'Dịch vụ cho thuê máy lạnh công nghiệp của Nguyễn Bình đồng bộ hoàn hảo với hệ nhà bạt: từ máy lạnh tủ đứng 5 HP đến hệ thống làm lạnh trung tâm hàng trăm HP cho không gian hàng nghìn m². Chúng tôi tính toán tải lạnh, thi công ống gió và vận hành xuyên suốt sự kiện.',
+    points:['Máy lạnh tủ đứng, AHU ống gió và chiller cho mọi quy mô','Tính toán tải lạnh chính xác theo thể tích nhà bạt và số khách','Kỹ thuật viên trực vận hành suốt sự kiện'],
+    benefits:[['Đồng bộ với nhà bạt','Một đầu mối cho cả mái che lẫn làm mát — không lệch trách nhiệm.'],['Đủ mọi công suất','Từ hội thảo 100 khách đến triển lãm 6.000 m² đều có phương án.'],['Vận hành trọn gói','Bao gồm điện nguồn, ống gió, nhiên liệu máy phát và nhân sự trực.']],
+    gallery:[IMG+'2024/07/z5607645268443_c54bfc8d5f8534577ca940e5b70918e6.jpg', IMG+'2024/07/gameverse.jpg', IMG+'2024/07/expo.jpg', IMG+'2024/07/samil.jpg', IMG+'2024/07/icareday.jpg', IMG+'2024/07/dh-bach-khoa.jpg'],
+    cta:'Cần làm mát cho sự kiện sắp tới?'
+  }
+};
+
+const PROJECTS = [
+  {t:'Vietnam GameVerse 2024', type:'su-kien', size:'5.000 m²', year:2024, img:IMG+'2024/07/gameverse.jpg'},
+  {t:'Lễ khánh thành kho LNG Cái Mép – Thị Vải', type:'su-kien', size:'2.000 m²', year:2023, img:IMG+'2024/07/z5607645268443_c54bfc8d5f8534577ca940e5b70918e6.jpg'},
+  {t:'The MaskSingers 2023', type:'su-kien', size:'2.000 m²', year:2023, img:IMG+'2024/07/masksingers.jpg'},
+  {t:'Rap Việt 2023', type:'su-kien', size:'1.500 m²', year:2023, img:IMG+'2024/07/rapviet.jpg'},
+  {t:'Khúc Giao Mùa – Techcombank', type:'su-kien', size:'300 m²', year:2023, img:IMG+'2024/07/techcombank.jpg'},
+  {t:'Vietnam Spectacular – Herbalife', type:'su-kien', size:'6.000 m²', year:2023, img:IMG+'2024/07/z5607735788808_e0f886fb173c293886a15cce0faa9e91.jpg'},
+  {t:'Vietravel Hội Xuân 2023', type:'su-kien', size:'2.000 m²', year:2022, img:IMG+'2024/07/vietravel.jpg'},
+  {t:'Lễ Kỷ niệm 65 năm ĐH Bách Khoa TP.HCM', type:'su-kien', size:'1.000 m²', year:2022, img:IMG+'2024/07/dh-bach-khoa.jpg'},
+  {t:'Khánh thành nhà máy Samil Vietnam – SHTP', type:'su-kien', size:'2.500 m²', year:2022, img:IMG+'2024/07/samil.jpg'},
+  {t:'Sự kiện iCareday của P&G', type:'su-kien', size:'2.000 m²', year:2021, img:IMG+'2024/07/icareday.jpg'},
+  {t:'SaigonTex – Triển lãm Dệt May Quốc tế', type:'trien-lam', size:'8.000 m²', year:2025, img:IMG+'2024/07/sg-tex1.jpg'},
+  {t:'HAWA Expo – Triển lãm Nội thất', type:'trien-lam', size:'6.000 m²', year:2025, img:IMG+'2024/07/hawa.jpg'},
+  {t:'VietFood & Beverage tại SECC', type:'trien-lam', size:'5.000 m²', year:2024, img:IMG+'2024/07/vietfood.jpg'},
+  {t:'Triển lãm Quốc tế tại SECC', type:'trien-lam', size:'10.000 m²', year:2026, img:IMG+'2024/07/expo-2.jpg'},
+  {t:'Hội chợ Thương mại Quốc tế Expo', type:'trien-lam', size:'4.000 m²', year:2024, img:IMG+'2024/07/expo.jpg'},
+  {t:'SaigonTex 2022', type:'trien-lam', size:'7.000 m²', year:2022, img:IMG+'2024/07/sg-tex.jpg'}
+];
+
+const POSTS = [
+  {t:'Cách Tổ chức sự kiện tại Công viên chuyên nghiệp', cat:'to-chuc-su-kien', catName:'Tổ chức Sự kiện', d:'Tổ chức sự kiện tại công viên mang đến không gian rộng rãi, gần gũi thiên nhiên — nhưng cần nắm rõ quy định cấp phép và phương án thời tiết.', img:IMG+'2026/07/Cach-To-chuc-su-kien-tai-Cong-vien-chuyen-nghiep-1-768x432.png', date:'28/07/2026'},
+  {t:'Tại sao Trung tâm Hội nghị là lựa chọn hàng đầu để Tổ chức sự kiện?', cat:'to-chuc-su-kien', catName:'Tổ chức Sự kiện', d:'Lựa chọn trung tâm hội nghị phù hợp sẽ góp phần nâng cao chất lượng và hình ảnh chuyên nghiệp của sự kiện doanh nghiệp.', img:IMG+'2026/07/Tai-sao-Trung-tam-Hoi-nghi-la-lua-chon-hang-dau-de-To-chuc-su-kien-2-768x432.png', date:'21/07/2026'},
+  {t:'11 Lưu ý cần tránh khi thuê Trung Tâm Tổ Chức Hội Nghị TP.HCM', cat:'to-chuc-su-kien', catName:'Tổ chức Sự kiện', d:'Lựa chọn trung tâm tổ chức hội nghị phù hợp là yếu tố quan trọng quyết định thành công — tránh ngay 11 sai lầm phổ biến này.', img:IMG+'2026/07/11-Luu-y-can-tranh-khi-thue-trung-Tam-To-Chuc-Hoi-Nghi-TP-1-768x432.png', date:'14/07/2026'},
+  {t:'16 Trung tâm Tổ chức hội nghị Uy Tín Tại TP.HCM', cat:'to-chuc-su-kien', catName:'Tổ chức Sự kiện', d:'Tổng hợp 16 địa điểm tổ chức hội nghị được đánh giá cao nhất TP.HCM theo quy mô, vị trí và chi phí.', img:IMG+'2026/07/16-Trung-tam-To-chuc-hoi-nghi-Uy-Tin-Tai-TP-1-768x432.png', date:'07/07/2026'},
+  {t:'3 địa điểm Tổ Chức Concert & Liveshow tại TP.HCM', cat:'to-chuc-su-kien', catName:'Tổ chức Sự kiện', d:'Lựa chọn địa điểm phù hợp là một trong những yếu tố quyết định thành công của một concert hay liveshow quy mô lớn.', img:IMG+'2026/07/3-dia-diem-To-Chuc-Concern-Liveshow-tai-TPHCM-2-768x432.png', date:'30/06/2026'},
+  {t:'So sánh tổ chức sự kiện ngoài trời và trong nhà: Nên chọn hình thức nào?', cat:'cam-nang', catName:'Cẩm nang nhà bạt', d:'Nên tổ chức sự kiện ngoài trời hay trong nhà luôn là câu hỏi khiến nhiều doanh nghiệp băn khoăn khi lên kế hoạch.', img:IMG+'2026/02/So-sanh-to-chuc-su-kien-ngoai-troi-va-trong-nha-1.png', date:'12/07/2026', link:'#/kien-thuc/bai-viet'},
+  {t:'Quy trình setup sự kiện ngoài trời chuyên nghiệp', cat:'thiet-bi', catName:'Thiết Bị & Phụ Kiện', d:'Tổ chức sự kiện ngoài trời mang lại không gian thoáng đãng và ấn tượng — nếu bạn nắm chắc quy trình setup 7 bước này.', img:IMG+'2024/07/nha-bat-nguyen-binh-4-768x512.jpg', date:'20/06/2026'},
+  {t:'Những hạng mục quan trọng khi tổ chức sự kiện ngoài trời', cat:'thiet-bi', catName:'Thiết Bị & Phụ Kiện', d:'Từ mái che, sàn, điện đến làm mát — checklist đầy đủ các hạng mục thiết bị cho sự kiện ngoài trời trọn vẹn.', img:IMG+'2024/07/nha-bat-nguyen-binh-kho-tam-1-768x512.jpg', date:'10/06/2026'},
+  {t:'Cẩm nang chọn khẩu độ nhà bạt theo quy mô sự kiện', cat:'cam-nang', catName:'Cẩm nang nhà bạt', d:'Khẩu độ 10 m hay 30 m? Hướng dẫn chọn đúng cấu hình nhà bạt theo số khách và concept chương trình.', img:IMG+'2023/06/cho-thue-nha-bat-khong-gian-11.jpg', date:'01/06/2026'}
+];
+
+const LEGAL = {
+  'chinh-sach': {title:'Chính sách bảo mật', body:`
+    <p>Nguyễn Bình cam kết bảo vệ thông tin cá nhân của khách hàng khi truy cập và sử dụng dịch vụ tại nguyenbinh.com.</p>
+    <h2>1. Thông tin chúng tôi thu thập</h2>
+    <p>Chúng tôi chỉ thu thập các thông tin bạn chủ động cung cấp qua biểu mẫu liên hệ: họ tên, số điện thoại, email và nội dung yêu cầu báo giá.</p>
+    <h2>2. Mục đích sử dụng</h2>
+    <ul><li>Tư vấn, báo giá và chăm sóc khách hàng theo yêu cầu của bạn</li><li>Cải thiện chất lượng dịch vụ và trải nghiệm website</li><li>Gửi thông tin dự án, khuyến mãi khi bạn đồng ý nhận tin</li></ul>
+    <h2>3. Cam kết bảo mật</h2>
+    <p>Thông tin của bạn không được bán, trao đổi hay chia sẻ cho bên thứ ba, trừ khi có yêu cầu từ cơ quan pháp luật có thẩm quyền. Dữ liệu được lưu trữ trên hệ thống có mã hóa và giới hạn quyền truy cập.</p>
+    <h2>4. Liên hệ</h2>
+    <p>Mọi yêu cầu về dữ liệu cá nhân, vui lòng gửi về <a href="mailto:sales@nguyenbinh.com" style="color:var(--sky);font-weight:600">sales@nguyenbinh.com</a> hoặc hotline 0937 327 777.</p>`},
+  'mien-tru': {title:'Tuyên bố từ chối trách nhiệm', body:`
+    <p>Nội dung trên nguyenbinh.com được cung cấp với mục đích tham khảo về dịch vụ cho thuê nhà bạt và tổ chức sự kiện.</p>
+    <h2>1. Tính chính xác của thông tin</h2>
+    <p>Chúng tôi nỗ lực cập nhật thông tin chính xác nhất, tuy nhiên thông số kỹ thuật, hình ảnh và giá dịch vụ có thể thay đổi theo thời điểm mà không báo trước. Báo giá chính thức chỉ có hiệu lực khi được xác nhận bằng văn bản.</p>
+    <h2>2. Liên kết bên ngoài</h2>
+    <p>Website có thể chứa liên kết đến trang bên thứ ba. Nguyễn Bình không chịu trách nhiệm về nội dung hoặc chính sách của các trang này.</p>
+    <h2>3. Giới hạn trách nhiệm</h2>
+    <p>Nguyễn Bình không chịu trách nhiệm với các thiệt hại phát sinh từ việc sử dụng thông tin trên website ngoài phạm vi hợp đồng dịch vụ đã ký kết.</p>`},
+  'cookie': {title:'Điều khoản sử dụng Cookie', body:`
+    <p>Website nguyenbinh.com sử dụng cookie để cải thiện trải nghiệm duyệt web của bạn.</p>
+    <h2>1. Cookie là gì?</h2>
+    <p>Cookie là tệp văn bản nhỏ được lưu trên trình duyệt khi bạn truy cập website, giúp ghi nhớ tùy chọn và phiên truy cập của bạn.</p>
+    <h2>2. Chúng tôi dùng cookie để làm gì?</h2>
+    <ul><li>Cookie cần thiết: đảm bảo website hoạt động ổn định</li><li>Cookie phân tích: đo lường lượt truy cập để cải thiện nội dung</li><li>Cookie quảng cáo: chỉ kích hoạt khi bạn đồng ý</li></ul>
+    <h2>3. Quản lý cookie</h2>
+    <p>Bạn có thể xóa hoặc chặn cookie bất kỳ lúc nào trong phần cài đặt trình duyệt. Việc chặn cookie cần thiết có thể ảnh hưởng đến một số chức năng của website.</p>`}
+};
+
+/* =============== RENDER HELPERS =============== */
+const $ = s => document.querySelector(s);
+const arrow = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
+function svcCard(key, i){
+  const s = SERVICES[key];
+  return `<a class="svc reveal d${i%4}" href="#/dich-vu/${key}">
+    <div class="svc-img"><span class="svc-num">${s.num}</span><img src="${s.img}" alt="${s.name}" loading="lazy"></div>
+    <div class="svc-body"><h3 class="h3" style="font-size:18px">${s.name}</h3><p>${s.sub}</p>
+    <span class="svc-link">Xem chi tiết ${arrow}</span></div></a>`;
+}
+function prjCard(p, i){
+  return `<a class="prj reveal d${i%3}" href="#/du-an/chi-tiet">
+    <img src="${p.img}" alt="${p.t}" loading="lazy">
+    <div class="prj-info"><span class="pt">${p.type==='su-kien'?'Sự kiện':'Triển lãm'}</span>
+    <h4>${p.t}</h4><div class="pm"><span>Quy mô <b>${p.size}</b></span><span>Năm <b>${p.year}</b></span></div></div></a>`;
+}
+function postCard(p, i){
+  return `<a class="post reveal d${i%3}" href="${p.link||'#/kien-thuc/bai-viet'}">
+    <div class="post-img"><img src="${p.img}" alt="${p.t}" loading="lazy"></div>
+    <div class="post-body"><span class="post-cat">${p.catName}</span><h4>${p.t}</h4><p>${p.d}</p>
+    <div class="post-meta"><span>${p.date}</span><span>Nguyễn Bình</span></div></div></a>`;
+}
+
+/* trang chủ */
+$('#home-services').innerHTML = Object.keys(SERVICES).map(svcCard).join('');
+$('#home-projects').innerHTML = PROJECTS.slice(0,6).map(prjCard).join('');
+$('#home-blog').innerHTML = POSTS.slice(0,3).map(postCard).join('');
+$('#all-services').innerHTML = Object.keys(SERVICES).map(svcCard).join('');
+$('#pd-related').innerHTML = PROJECTS.slice(1,4).map(prjCard).join('');
+$('#post-related').innerHTML = POSTS.slice(0,3).map(p=>`<a href="#/kien-thuc/bai-viet" style="display:flex;gap:12px;align-items:center">
+  <img src="${p.img}" alt="" style="width:74px;height:54px;object-fit:cover;border-radius:9px;flex:none">
+  <span style="font-size:13.5px;font-weight:600;line-height:1.4;color:var(--ink)">${p.t}</span></a>`).join('');
+
+/* dự án: filter */
+let prjType='all', prjYear='all';
+function renderProjects(){
+  const list = PROJECTS.filter(p => (prjType==='all'||p.type===prjType) && (prjYear==='all'||p.year===+prjYear));
+  $('#prj-list').innerHTML = list.map(prjCard).join('');
+  $('#prj-empty').style.display = list.length ? 'none':'block';
+  observeReveals();
+}
+$('#prj-type-filter').addEventListener('click', e => {
+  const b = e.target.closest('.chip'); if(!b) return;
+  prjType = b.dataset.type;
+  [...$('#prj-type-filter').children].forEach(c=>c.classList.toggle('on', c===b));
+  renderProjects();
+});
+$('#prj-year-filter').addEventListener('click', e => {
+  const b = e.target.closest('.chip'); if(!b) return;
+  prjYear = b.dataset.year;
+  [...$('#prj-year-filter').children].forEach(c=>c.classList.toggle('on', c===b));
+  renderProjects();
+});
+
+/* kiến thức: filter */
+let blogCat='all';
+function renderBlog(){
+  const list = POSTS.filter(p => blogCat==='all'||p.cat===blogCat);
+  $('#blog-list').innerHTML = list.map(postCard).join('');
+  observeReveals();
+}
+$('#blog-filter').addEventListener('click', e => {
+  const b = e.target.closest('.chip'); if(!b) return;
+  blogCat = b.dataset.cat;
+  [...$('#blog-filter').children].forEach(c=>c.classList.toggle('on', c===b));
+  renderBlog();
+});
+
+/* dịch vụ con */
+function renderService(key){
+  const s = SERVICES[key] || SERVICES['su-kien'];
+  $('#sv-crumb').textContent = s.short;
+  $('#sv-title').textContent = s.short;
+  $('#sv-sub').textContent = s.sub;
+  $('#sv-img').src = s.img; $('#sv-img').alt = s.name;
+  $('#sv-h2').textContent = s.h2;
+  $('#sv-desc').textContent = s.desc;
+  $('#sv-points').innerHTML = s.points.map(p=>`<li><span class="ck">✓</span>${p}</li>`).join('');
+  $('#sv-benefits').innerHTML = s.benefits.map((b,i)=>`<div class="benefit reveal d${i}">
+    <div class="bi"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7 10 17l-5-5"/></svg></div>
+    <h4>${b[0]}</h4><p>${b[1]}</p></div>`).join('');
+  $('#sv-gallery').innerHTML = s.gallery.map(g=>`<img src="${g}" alt="${s.name}" loading="lazy">`).join('');
+  $('#sv-cta').textContent = s.cta;
+}
+
+/* pháp lý */
+function renderLegal(key){
+  const l = LEGAL[key] || LEGAL['chinh-sach'];
+  $('#lg-title').textContent = l.title;
+  $('#lg-crumb').textContent = l.title;
+  $('#lg-body').innerHTML = l.body;
+  document.querySelectorAll('[data-legal]').forEach(c=>c.classList.toggle('on', c.dataset.legal===(LEGAL[key]?key:'chinh-sach')));
+}
+
+/* =============== ROUTER =============== */
+const routes = {
+  '': 'home', 'gioi-thieu':'gioi-thieu', 'nha-bat':'nha-bat', 'dich-vu':'dich-vu',
+  'du-an':'du-an', 'kien-thuc':'kien-thuc', 'lien-he':'lien-he'
+};
+function route(){
+  const hash = location.hash.replace(/^#\//,'').split('?')[0];
+  const parts = hash.split('/');
+  let page = routes[parts[0]] ?? 'home';
+  if(parts[0]==='dich-vu' && parts[1]){ page='dich-vu-con'; renderService(parts[1]); }
+  if(parts[0]==='du-an' && parts[1]) page='du-an-chi-tiet';
+  if(parts[0]==='kien-thuc' && parts[1]==='bai-viet') page='bai-viet';
+  if(parts[0]==='phap-ly'){ page='phap-ly'; renderLegal(parts[1]||'chinh-sach'); }
+
+  /* query params: lọc sẵn từ menu */
+  const q = new URLSearchParams((location.hash.split('?')[1]||''));
+  if(page==='du-an' && q.get('type')){ prjType=q.get('type'); [...$('#prj-type-filter').children].forEach(c=>c.classList.toggle('on', c.dataset.type===prjType)); }
+  if(page==='kien-thuc' && q.get('cat')){ blogCat=q.get('cat'); [...$('#blog-filter').children].forEach(c=>c.classList.toggle('on', c.dataset.cat===blogCat)); }
+
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('on', p.dataset.page===page));
+  if(page==='du-an') renderProjects();
+  if(page==='kien-thuc') renderBlog();
+  document.querySelectorAll('[data-nav]').forEach(a=>a.classList.toggle('active', parts[0]===a.dataset.nav));
+  window.scrollTo({top:0, behavior:'instant'});
+  $('#nav').classList.remove('open'); $('#burger').classList.remove('open');
+  observeReveals(); runCounters();
+}
+window.addEventListener('hashchange', route);
+
+/* =============== ANIMATIONS =============== */
+const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }), {threshold:.12});
+function observeReveals(){ document.querySelectorAll('.page.on .reveal:not(.in)').forEach(el=>io.observe(el)); }
+
+const cio = new IntersectionObserver(es => es.forEach(e => {
+  if(!e.isIntersecting) return; cio.unobserve(e.target);
+  const el = e.target, end = +el.dataset.count, t0 = performance.now(), dur = 1600;
+  const fmt = n => n.toLocaleString('vi-VN');
+  (function tick(t){ const p = Math.min((t-t0)/dur,1), ease = 1-Math.pow(1-p,3);
+    el.textContent = fmt(Math.round(end*ease));
+    if(p<1) requestAnimationFrame(tick); })(t0);
+}), {threshold:.4});
+function runCounters(){ document.querySelectorAll('.page.on [data-count]').forEach(el=>{ el.textContent='0'; cio.observe(el); }); }
+
+/* header scroll + burger + mobile dropdown */
+window.addEventListener('scroll', ()=> $('#header').classList.toggle('scrolled', scrollY>10), {passive:true});
+$('#burger').addEventListener('click', ()=>{ $('#nav').classList.toggle('open'); $('#burger').classList.toggle('open'); });
+$('#nav').addEventListener('click', e => {
+  const li = e.target.closest('li');
+  if(window.innerWidth<=1020 && li && li.querySelector('.dropdown') && e.target.closest('a')===li.querySelector(':scope>a') && e.target.querySelector && !li.classList.contains('exp')){
+    e.preventDefault(); li.classList.add('exp');
+  }
+});
+
+route();
+</script>
+</body>
+</html>

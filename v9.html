@@ -224,10 +224,6 @@ body.home-on .header:not(.solid) .logo .lg-b{display:none}
   .burger span{left:11px;right:11px}
   .h1{font-size:clamp(30px,8.6vw,38px)}
   .hero-sub .h1{font-size:clamp(28px,8vw,36px)}
-  .stack-media .m2{right:4px;bottom:-24px}
-  .stack-media .rot{left:-6px;top:-20px;width:96px;height:96px}
-  .stack-media .rot > svg{width:96px;height:96px}
-  .stack-media .rot .core{inset:26px}
 }
 /* CTA cuối drawer mobile — ẩn trên desktop */
 .nav-cta{display:none}
@@ -327,6 +323,13 @@ body.home-on .header:not(.solid) .logo .lg-b{display:none}
 @keyframes spin{to{transform:rotate(360deg)}}
 .stack-media .rot .core{position:absolute;inset:35px;border-radius:50%;background:linear-gradient(135deg,#3AA6DF,#1F84BE);display:grid;place-items:center;color:#fff;animation:spin 16s linear infinite reverse;box-shadow:var(--edgeD)}
 @media(max-width:920px){.split{grid-template-columns:1fr}.stack-media .m2{right:8px}.stack-media .rot{left:-8px}}
+/* badge nhỏ + cân tâm trên mobile — phải đứng SAU các rule component để thắng cascade */
+@media(max-width:560px){
+  .stack-media .m2{right:4px;bottom:-24px}
+  .stack-media .rot{left:-6px;top:-20px;width:96px;height:96px}
+  .stack-media .rot > svg{width:96px;height:96px}
+  .stack-media .rot .core{inset:26px}
+}
 .klist{margin-top:32px;display:grid;gap:0}
 .klist li{display:flex;gap:18px;padding:20px 0;border-bottom:1px solid var(--line);align-items:flex-start;transition:padding .3s var(--e)}
 .klist li:hover{padding-left:6px}
@@ -485,7 +488,21 @@ body.home-on .header:not(.solid) .logo .lg-b{display:none}
 .footer .base a:hover{color:var(--ink)}
 .footer .wordmark{font-family:var(--disp);font-weight:700;font-size:clamp(52px,11vw,186px);letter-spacing:-.03em;line-height:.92;text-align:center;padding:34px 0 0;user-select:none;text-transform:uppercase;color:transparent;-webkit-text-stroke:1px rgba(20,40,90,.1)}
 @media(max-width:920px){.footer .cols{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.footer .cols{grid-template-columns:1fr}}
+@media(max-width:560px){
+  .footer .f-cta{padding-top:56px;padding-bottom:46px;gap:26px}
+  .f-cta-p{font-size:14.5px;margin-top:14px}
+  .f-cta-r{width:100%;flex-direction:row;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  /* 2 cột link cạnh nhau; khối công ty & liên hệ chiếm cả hàng */
+  .footer .cols{grid-template-columns:1fr 1fr;gap:30px 20px;padding-top:44px;padding-bottom:40px}
+  .footer .cols>div:first-child,.footer .cols>div:last-child{grid-column:1/-1}
+  .footer .logo-f{height:40px;margin-bottom:16px}
+  .footer p{font-size:14.5px}
+  .footer h5{margin-bottom:16px}
+  .footer ul{gap:11px;font-size:14.5px}
+  .footer .fi{font-size:14.5px;margin-bottom:12px;gap:11px}
+  .footer .wordmark{padding-top:18px}
+  .footer .base{flex-direction:column;align-items:center;text-align:center;gap:8px;padding-top:18px;padding-bottom:24px;font-size:13px}
+}
 
 /* ============ TRANG CON — hero sáng ============ */
 .hero-sub{position:relative;background:var(--bg2);color:var(--txt);padding:clamp(150px,17vw,230px) 0 clamp(60px,8vw,104px);overflow:hidden}

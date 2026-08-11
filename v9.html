@@ -391,17 +391,7 @@ body.home-on .header:not(.solid) .logo .lg-b{display:none}
 .show-info .sl.anim>*:nth-child(2){animation-delay:.08s}
 .show-info .sl.anim>*:nth-child(3){animation-delay:.16s}
 .show-slides{touch-action:pan-y;cursor:grab}
-/* mobile: 5 card dọc kiểu PICO thay slideshow */
-.prj-cards{display:none}
-.pmcard{position:relative;display:block;border-radius:var(--r);overflow:hidden;aspect-ratio:3/4;box-shadow:var(--sh-md);border:1px solid var(--line);transition:transform .45s var(--e)}
-.pmcard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.pmcard::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(14,26,54,.78))}
-.pmcard-info{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:22px;color:#fff}
-.pmcard-info h3{font-family:var(--disp);font-size:21px;font-weight:600;letter-spacing:-.015em;line-height:1.15;margin-bottom:14px}
-.pmcard-info .btn{padding:11px 22px;font-size:13px}
 @media(max-width:700px){
-  #prj-show{display:none}
-  .prj-cards{display:grid;gap:16px}
   .show-slides{min-height:340px}
   .show-info{flex-direction:column;align-items:flex-start;gap:18px;padding:22px}
   .snav{width:46px;height:46px}
@@ -545,6 +535,19 @@ body.home-on .header:not(.solid) .logo .lg-b{display:none}
 .spec-table td:first-child{font-family:var(--disp);font-weight:700;font-size:16px;color:var(--skyd)}
 .table-scroll{overflow-x:auto;border-radius:var(--r);box-shadow:var(--sh-xl);border:1px solid var(--line)}
 
+/* ============ BAND CAM KẾT (nền tối, chèn giữa dịch vụ và dự án) ============ */
+.pledge{position:relative;border-radius:var(--r);overflow:hidden;text-align:center;color:#fff;box-shadow:var(--sh-xl)}
+.pledge .pl-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pledge::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,12,24,.84),rgba(14,26,54,.92))}
+.pl-in{position:relative;z-index:1;padding:clamp(52px,7vw,104px) clamp(22px,6vw,90px);display:flex;flex-direction:column;align-items:center}
+.pl-eyeb{font-family:var(--disp);font-size:12.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--sky3);margin-bottom:20px}
+.pl-eyeb i{font-style:normal;opacity:.6;margin-right:9px}
+.pledge h2{font-family:var(--disp);font-weight:600;font-size:clamp(26px,4vw,48px);letter-spacing:-.02em;line-height:1.14;max-width:780px;text-transform:none;text-wrap:balance}
+.pledge h2 em{font-family:var(--serif);font-style:italic;font-weight:600;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pl-lead{color:rgba(255,255,255,.76);font-size:15.5px;line-height:1.8;max-width:620px;margin-top:18px}
+.pl-card{margin-top:36px;max-width:600px;padding:26px 30px;border-radius:18px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16)}
+.pl-card p{font-size:14.5px;line-height:1.75;color:rgba(255,255,255,.86);margin-bottom:18px}
+
 /* gallery */
 .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .gallery figure{border-radius:18px;overflow:hidden;position:relative;margin:0;border:1px solid var(--line);box-shadow:var(--sh-md);transition:border-color .35s,box-shadow .35s,transform .4s var(--e)}
@@ -686,7 +689,7 @@ body.home-on .header:not(.solid) .logo .lg-b{display:none}
 /* phản hồi chạm trên thiết bị không hover */
 @media(hover:none){
   .btn:active{transform:scale(.97);transition-duration:.15s}
-  .pcard:active,.pmcard:active,.bpost:active,.svr:active,.be:active,.inc:active,.cc:active{transform:scale(.98);transition-duration:.15s}
+  .pcard:active,.bpost:active,.svr:active,.be:active,.inc:active,.cc:active{transform:scale(.98);transition-duration:.15s}
   .mg-it:active,.tab:active,.ychip:active,.tchip:active{transform:scale(.96);transition-duration:.15s}
 }
 @media(prefers-reduced-motion:reduce){
@@ -1024,12 +1027,30 @@ body.landing-on .float{bottom:88px}
     </div>
   </div>
 
+  <!-- band cam kết: điểm nghỉ tối giữa 2 section nhiều ảnh -->
+  <div class="sec sec--line">
+    <div class="wrap">
+      <div class="pledge reveal">
+        <img loading="lazy" decoding="async" class="pl-bg" src="https://nguyenbinh.com/wp-content/uploads/2024/07/nha-bat-nguyen-binh-3-1024x768.jpg" alt="Công trình nhà bạt Nguyễn Bình">
+        <div class="pl-in">
+          <span class="pl-eyeb"><i>(04)</i><span data-i="cm_e">Cam kết Nguyễn Bình</span></span>
+          <h2 data-i="cm_h">100% <em>đúng tiến độ</em> — 0% <em>phát sinh ngoài báo giá</em></h2>
+          <p class="pl-lead" data-i="cm_p">Từ 2009, mỗi công trình đều được khảo sát chính xác, thi công an toàn và bàn giao đúng cam kết — như cách chúng tôi đồng hành cùng SECC và 400+ chủ đầu tư trên toàn quốc.</p>
+          <div class="pl-card">
+            <p data-i="cm_card">Tải hồ sơ năng lực để xem chi tiết thiết bị, đội ngũ và các dự án đã hoàn thành — sẵn sàng cho hồ sơ thầu của bạn.</p>
+            <a class="btn btn--sky" href="#/gioi-thieu"><span data-i="cm_btn">Xem hồ sơ năng lực</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- dự án showcase -->
   <div class="sec">
     <div class="wrap">
       <div class="sec-head head-flex reveal">
         <div>
-          <span class="eyeb"><i>(04)</i><span data-i="pj_eyeb">Dự án tiêu biểu</span></span>
+          <span class="eyeb"><i>(05)</i><span data-i="pj_eyeb">Dự án tiêu biểu</span></span>
           <h2 class="h2 wsplit" data-ws data-i="pj_h2">Công trình nói thay năng lực</h2>
         </div>
         <a class="arrow-link" href="#/du-an"><span data-i="pj_link">Tất cả 400+ dự án</span> <span class="cir"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
@@ -1050,7 +1071,6 @@ body.landing-on .float{bottom:88px}
           </div>
         </div>
       </div>
-      <div class="prj-cards" id="prj-cards"></div>
     </div>
   </div>
 
@@ -1059,7 +1079,7 @@ body.landing-on .float{bottom:88px}
     <div class="wrap">
       <div class="sec-head head-flex reveal">
         <div>
-          <span class="eyeb"><i>(05)</i><span data-i="bl_eyeb">Kiến thức</span></span>
+          <span class="eyeb"><i>(06)</i><span data-i="bl_eyeb">Kiến thức</span></span>
           <h2 class="h2 wsplit" data-ws data-i="bl_h2">Cẩm nang từ người trong nghề</h2>
         </div>
         <a class="arrow-link" href="#/kien-thuc"><span data-i="bl_link">Tất cả bài viết</span> <span class="cir"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
@@ -1897,7 +1917,8 @@ vi:{
   ab_eyeb:'Về chúng tôi', ab_h2:'Đối tác của các thương hiệu hàng đầu', ab_lead:'Thành lập từ 2009, Nguyễn Bình cung cấp giải pháp tư vấn và lắp đặt nhà bạt không gian chất lượng cao — chính xác, an toàn, đúng tiến độ cam kết.',
   ab_k1t:'Đối tác chính thức SECC &amp; Nhà Thi Đấu Phú Thọ', ab_k1d:'Cung cấp nhà bạt cho các kỳ triển lãm quốc tế và sự kiện lớn nhất TP.HCM.', ab_k2t:'Hạ tầng 4 kho xưởng — 30.000 m² thiết bị', ab_k2d:'Sẵn sàng huy động cho dự án gấp, quy mô tới hàng chục nghìn mét vuông.', ab_k3t:'Thi công 24–72 giờ, giám sát an toàn từng công đoạn', ab_k3d:'Đội ngũ 50+ kỹ thuật viên làm việc cả ban đêm để kịp mọi deadline.', ab_link:'Xem hồ sơ năng lực',
   sv_eyeb:'Dịch vụ', sv_h2:'Bốn giải pháp, một tiêu chuẩn', sv_link:'Trang dịch vụ', sv_detail:'Xem chi tiết',
-  pj_eyeb:'Dự án tiêu biểu', pj_h2:'Công trình nói thay năng lực', pj_link:'Tất cả 400+ dự án', pj_scale:'Quy mô', pj_view:'Xem dự án',
+  pj_eyeb:'Dự án tiêu biểu', pj_h2:'Công trình nói thay năng lực', pj_link:'Tất cả 400+ dự án', pj_scale:'Quy mô',
+  cm_e:'Cam kết Nguyễn Bình', cm_h:'100% <em>đúng tiến độ</em> — 0% <em>phát sinh ngoài báo giá</em>', cm_p:'Từ 2009, mỗi công trình đều được khảo sát chính xác, thi công an toàn và bàn giao đúng cam kết — như cách chúng tôi đồng hành cùng SECC và 400+ chủ đầu tư trên toàn quốc.', cm_card:'Tải hồ sơ năng lực để xem chi tiết thiết bị, đội ngũ và các dự án đã hoàn thành — sẵn sàng cho hồ sơ thầu của bạn.', cm_btn:'Xem hồ sơ năng lực',
   bl_eyeb:'Kiến thức', bl_h2:'Cẩm nang từ người trong nghề', bl_link:'Tất cả bài viết',
   cta_h:'Dự án của bạn cần không gian?', cta_p:'Khảo sát miễn phí — báo giá chi tiết theo hạng mục trong 24 giờ làm việc. Dựng hoàn thiện trong 72 giờ.', cta_call:'Gọi 0937 327 777', cta_quote:'Gửi yêu cầu báo giá', cta_send:'Gửi yêu cầu',
   gt_h1:'Hồ sơ năng lực', gt_lead:'Công Ty TNHH Dịch Vụ Nguyễn Bình — thương hiệu nhà bạt uy tín trên thị trường Việt Nam từ 2009.', gt_e1:'Tầm nhìn', gt_h2a:'Thương hiệu nhà bạt uy tín tại Việt Nam', gt_e2:'Sứ mệnh', gt_h2b:'Mọi không gian đều có giải pháp phù hợp', gt_e3:'Lĩnh vực hoạt động', gt_h2c:'Ba trụ cột dịch vụ', gt_e4:'Hành trình', gt_h2d:'Những dấu ấn của Nguyễn Bình', gt_e5:'Năng lực', gt_h2e:'Vì sao chọn Nguyễn Bình?',
@@ -1926,7 +1947,8 @@ en:{
   ab_eyeb:'About us', ab_h2:'Partner of leading brands', ab_lead:'Founded in 2009, Nguyen Binh delivers high-quality clear-span tent consulting and installation — precise, safe, always on schedule.',
   ab_k1t:'Official partner of SECC &amp; Phu Tho Stadium', ab_k1d:'Supplying tents for international exhibitions and HCMC’s biggest events.', ab_k2t:'4 warehouses — 30,000 m² of equipment', ab_k2d:'Ready to mobilize for urgent projects of tens of thousands of square meters.', ab_k3t:'24–72h installation with stage-by-stage safety supervision', ab_k3d:'A team of 50+ technicians working around the clock to meet every deadline.', ab_link:'View company profile',
   sv_eyeb:'Services', sv_h2:'Four solutions, one standard', sv_link:'Services page', sv_detail:'View details',
-  pj_eyeb:'Featured projects', pj_h2:'Our work speaks for itself', pj_link:'All 400+ projects', pj_scale:'Scale', pj_view:'View project',
+  pj_eyeb:'Featured projects', pj_h2:'Our work speaks for itself', pj_link:'All 400+ projects', pj_scale:'Scale',
+  cm_e:'Our commitment', cm_h:'100% <em>on schedule</em> — 0% <em>surprises beyond the quote</em>', cm_p:'Since 2009, every project has been precisely surveyed, safely built and handed over as promised — the way we serve SECC and 400+ clients nationwide.', cm_card:'Get our capability profile for full details on equipment, crew and completed projects — ready for your tender documents.', cm_btn:'View capability profile',
   bl_eyeb:'Insights', bl_h2:'A handbook from the pros', bl_link:'All articles',
   cta_h:'Does your project need space?', cta_p:'Free site survey — detailed itemized quote within 24 working hours. Full setup within 72 hours.', cta_call:'Call 0937 327 777', cta_quote:'Request a quote', cta_send:'Send request',
   gt_h1:'Company Profile', gt_lead:'Nguyen Binh Service Co., Ltd — a trusted tent brand in Vietnam since 2009.', gt_e1:'Vision', gt_h2a:'A trusted tent brand in Vietnam', gt_e2:'Mission', gt_h2b:'Every space has the right solution', gt_e3:'Business areas', gt_h2c:'Three service pillars', gt_e4:'Journey', gt_h2d:'Nguyen Binh milestones', gt_e5:'Capabilities', gt_h2e:'Why choose Nguyen Binh?',
@@ -1955,7 +1977,8 @@ zh:{
   ab_eyeb:'关于我们', ab_h2:'领先品牌的合作伙伴', ab_lead:'阮平成立于2009年，提供高品质大跨度篷房咨询与安装——精准、安全、如期交付。',
   ab_k1t:'SECC及富寿体育馆官方合作伙伴', ab_k1d:'为国际展会及胡志明市大型活动提供篷房。', ab_k2t:'四大仓库——30,000平方米设备', ab_k2d:'可随时调配，支持数万平方米的紧急项目。', ab_k3t:'24–72小时施工，全程安全监督', ab_k3d:'50+技术人员昼夜施工，确保每个工期。', ab_link:'查看公司简介',
   sv_eyeb:'服务项目', sv_h2:'四大方案，同一标准', sv_link:'服务页面', sv_detail:'查看详情',
-  pj_eyeb:'精选项目', pj_h2:'工程实力见证', pj_link:'全部400+项目', pj_scale:'规模', pj_view:'查看项目',
+  pj_eyeb:'精选项目', pj_h2:'工程实力见证', pj_link:'全部400+项目', pj_scale:'规模',
+  cm_e:'我们的承诺', cm_h:'100% <em>如期交付</em> — 0% <em>报价外增项</em>', cm_p:'自2009年起，每个项目都经过精准测量、安全施工、如约交付——正如我们服务SECC与全国400+业主。', cm_card:'获取公司能力档案，详细了解设备、团队与完工项目——助力您的投标文件。', cm_btn:'查看能力档案',
   bl_eyeb:'行业资讯', bl_h2:'来自行家的指南', bl_link:'全部文章',
   cta_h:'您的项目需要空间吗？', cta_p:'免费现场勘察——24个工作小时内提供详细分项报价，72小时内完成搭建。', cta_call:'致电 0937 327 777', cta_quote:'索取报价', cta_send:'发送请求',
   gt_h1:'公司简介', gt_lead:'阮平服务有限公司——自2009年以来越南值得信赖的篷房品牌。', gt_e1:'愿景', gt_h2a:'越南值得信赖的篷房品牌', gt_e2:'使命', gt_h2b:'每个空间都有合适的方案', gt_e3:'业务领域', gt_h2c:'三大服务支柱', gt_e4:'发展历程', gt_h2d:'阮平的里程碑', gt_e5:'实力', gt_h2e:'为什么选择阮平？',
@@ -2104,10 +2127,7 @@ heroVid.addEventListener('error', ()=>{
 /* =============== PROJECT SHOWCASE =============== */
 const SHOW = PROJECTS.slice(0,5);
 $('#show-slides').innerHTML = SHOW.map((p,i)=>`<div class="sslide${i===0?' on':''}"><img loading="lazy" decoding="async" src="${p.img}" alt="${p.t}" loading="${i===0?'eager':'lazy'}"></div>`).join('');
-$('#show-total').textContent = String(SHOW.length).padStart(2,'0');
-/* mobile: 5 card dọc thay slideshow (CSS ẩn/hiện theo breakpoint) */
-$('#prj-cards').innerHTML = SHOW.map(p=>`<a class="pmcard reveal" href="#/du-an"><img loading="lazy" decoding="async" src="${p.img}" alt="${p.t}"><div class="pmcard-info"><h3>${p.t}</h3><span class="btn btn--sky" data-i="pj_view">Xem dự án</span></div></a>`).join('');
-let si = 0, showTimer;
+$('#show-total').textContent = String(SHOW.length).padStart(2,'0');let si = 0, showTimer;
 function showGo(i){
   const n = (i+SHOW.length) % SHOW.length;
   if(n !== si){

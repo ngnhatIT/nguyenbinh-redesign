@@ -368,8 +368,8 @@ body.home-on .header:not(.solid) .logo .lg-b{display:none}
 /* ============ DỰ ÁN SHOWCASE ============ */
 .show{position:relative;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh-xl);background:var(--card);border:1px solid var(--line)}
 .show-slides{position:relative;aspect-ratio:16/8.2;min-height:420px}
-.sslide{position:absolute;inset:0;opacity:0;pointer-events:none;transform:scale(1.04);transition:opacity 1s ease,transform 6.5s linear}
-.sslide.on{opacity:1;pointer-events:auto;transform:scale(1)}
+.sslide{position:absolute;inset:0;pointer-events:none;transform:translateX(100%);transition:transform .85s var(--e)}
+.sslide.on{pointer-events:auto;transform:none}
 .sslide img{width:100%;height:100%;object-fit:cover}
 .sslide::after{content:"";position:absolute;inset:0;background:linear-gradient(12deg,rgba(7,12,24,.92) 8%,transparent 56%)}
 .show-info{position:absolute;left:0;right:0;bottom:0;z-index:5;padding:clamp(24px,3.5vw,48px);display:flex;justify-content:space-between;align-items:flex-end;gap:26px;color:#fff}
@@ -2109,8 +2109,17 @@ $('#show-total').textContent = String(SHOW.length).padStart(2,'0');
 $('#prj-cards').innerHTML = SHOW.map(p=>`<a class="pmcard reveal" href="#/du-an"><img loading="lazy" decoding="async" src="${p.img}" alt="${p.t}"><div class="pmcard-info"><h3>${p.t}</h3><span class="btn btn--sky" data-i="pj_view">Xem dự án</span></div></a>`).join('');
 let si = 0, showTimer;
 function showGo(i){
-  si = (i+SHOW.length) % SHOW.length;
-  document.querySelectorAll('.sslide').forEach((el,k)=>el.classList.toggle('on', k===si));
+  const n = (i+SHOW.length) % SHOW.length;
+  if(n !== si){
+    /* trượt ngang theo hướng bấm: slide mới vào từ phía dir, slide cũ ra phía ngược lại */
+    const dir = i > si ? 1 : -1;
+    const slides = document.querySelectorAll('.sslide'), out = slides[si], inn = slides[n];
+    inn.style.transition = 'none'; inn.style.transform = `translateX(${dir>0?100:-100}%)`;
+    void inn.offsetWidth; inn.style.transition = '';
+    inn.classList.add('on'); inn.style.transform = 'translateX(0)';
+    out.classList.remove('on'); out.style.transform = `translateX(${dir>0?-100:100}%)`;
+    si = n;
+  }
   const p = SHOW[si];
   $('#show-meta').innerHTML = `<span>${p.type==='su-kien'?t('tb_event'):t('tb_expo')}</span><span>·</span><span>${p.year}</span>`;
   $('#show-title').textContent = p.t;

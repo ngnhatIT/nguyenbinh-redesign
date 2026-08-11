@@ -1,0 +1,60 @@
+{
+  "$comment": "Team-shared Claude Code settings — check into git. Personal overrides: .claude/settings.local.json (add to .gitignore). Docs: https://code.claude.com/docs/en/settings",
+  "permissions": {
+    "$comment": "Allow: safe/read-only + your verified project commands. Ask: irreversible or public-facing. Deny: secrets and destructive ops. Replace <placeholders> with your real commands via /onboard.",
+    "allow": [
+      "Read",
+      "Grep",
+      "Glob",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git branch:*)",
+      "Bash(git add:*)",
+      "Bash(git stash:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir:*)"
+    ],
+    "ask": [
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(gh pr create:*)",
+      "Bash(rm:*)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Read(**/*.pem)",
+      "Read(**/*credentials*)",
+      "Bash(git push --force:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(git checkout .:*)",
+      "Bash(rm -rf:*)"
+    ]
+  },
+  "hooks": {
+    "$comment": "Hooks are deterministic — unlike CLAUDE.md rules, they ALWAYS run. Two templates below. To activate: remove the '_disabled_' prefix and replace the echo with your real command. (1) PostToolUse: auto-lint/format after every edit. (2) Stop: a verification gate — a non-zero exit blocks Claude from ending the turn until the check passes (auto-overridden after 8 consecutive blocks).",
+    "_disabled_PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'REPLACE: e.g. npx prettier --write \"$CLAUDE_FILE_PATHS\" && npx eslint --fix \"$CLAUDE_FILE_PATHS\"'"
+          }
+        ]
+      }
+    ],
+    "_disabled_Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'REPLACE: e.g. pnpm typecheck && pnpm test --changed' "
+          }
+        ]
+      }
+    ]
+  }
+}

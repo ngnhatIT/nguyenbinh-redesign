@@ -29,11 +29,11 @@ redesign effort: multiple full-page design iterations coexist as separate files.
 | `Hồ sơ năng lực` | Company capability profile, used for `hồ sơ thầu` (bid/tender submissions) |
 | `SECC` | Saigon Exhibition & Convention Center — a flagship client cited on the site |
 | `Nhà Thi Đấu Phú Thọ` | Phú Thọ Stadium — another named client |
-| `vX` (v2…v9) | A numbered full-page design iteration; each is a standalone live page |
+| `vX` (v2…v10) | A numbered full-page design iteration; each is a standalone live page |
 
 ## Architecture map
 
-- **Pages**: `index.html`, `v2.html` … `v9.html` at repo root. Each is one
+- **Pages**: `index.html`, `v2.html` … `v10.html` at repo root. Each is one
   **self-contained** static HTML file — one inline `<style>`, inline `<script>`,
   no external local CSS/JS. `index.html` and every `v*.html` are live/deployed.
 - **New iterations**: copy the latest version to the next number (`v8.html`); do

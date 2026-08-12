@@ -1,176 +1,153 @@
-# SPEC: v9.html — tinh chỉnh mobile trang home (từ v5.html)
+# SPEC — v10.html (phát triển từ v9.html)
 
 ## Goal
 
-Tạo `v9.html` bằng cách **copy nguyên `v5.html`** (không sửa v5 — trang live), rồi
-tinh chỉnh trang home:
+Tạo `v10.html` bằng cách **copy `v9.html`** (không sửa v9 — quy tắc "versions are kept,
+not replaced"), rồi thực hiện 6 cải tiến: giảm khoảng trống dọc giữa các section,
+band "CAM KẾT NGUYỄN BÌNH" full-bleed, showcase "Công trình nói thay năng lực"
+tự chạy với tabs tên dự án (bỏ nút prev/next và label 01/05), card `/du-an` trên
+mobile theo phong cách v7, animation mượt/chuyên nghiệp hơn, và mobile menu dịu
+màu hơn (gradient sáng pha xanh, không trắng chói). Kết quả là một file HTML
+tự chứa duy nhất, tiếng Việt, chạy bằng cách mở trực tiếp trong browser.
 
-1. **Mobile — mục "Dự án tiêu biểu"**: bỏ slideshow trên mobile, thay bằng 5 card
-   full-ảnh xếp dọc kiểu PICO (ảnh nền phủ card, tiêu đề trắng đè lên đáy ảnh,
-   nút CTA pill bên dưới tiêu đề). **PC giữ nguyên slideshow hiện tại.**
-2. **Mobile — 4 card dịch vụ (`.scard`)**: description gọn hơn (font nhỏ hơn,
-   clamp 2 dòng), **ẩn hoàn toàn hàng tag** ("Chuẩn SECC", "Chống dột 100%", …).
-   Chỉ áp dụng trên mobile — PC giữ nguyên.
-3. **Cả PC + Mobile — màu 4 card dịch vụ**: 4 sắc độ xanh dương nhạt → hơi đậm dần
-   theo palette sẵn có, chữ vẫn tối. KHÔNG dùng nền navy đậm chữ trắng như v4.
-4. **Menu mobile xổ xuống**: nền đỡ trắng hơn (tint xanh nhạt).
-5. **Animation nhẹ nhàng, chuyên nghiệp** bổ sung trên nền hệ reveal sẵn có.
-
-Kết quả quan sát được: mở `v9.html` ở width mobile (~390px) thấy dự án tiêu biểu
-là 5 card dọc kiểu PICO, card dịch vụ gọn không còn tag, 4 card có 4 sắc xanh phân
-biệt nhẹ, menu burger mở ra nền xanh nhạt; ở desktop mọi thứ giống v5 trừ màu card
-dịch vụ và animation mượt hơn.
-
-## Bối cảnh v5.html (từ khảo sát — line number theo v5.html)
-
-- Single-file SPA ~2300 dòng, hash router, các section render bằng JS inline.
-- `:root` (dòng 25–58): `--bg #FFFFFF`, `--bg2 #EDF2F9`, `--navy #1B2F8A`,
-  `--sky #2E9BD6`, `--skyd #1479B8`, `--sky3 #8FCBEF`, `--ink #0E1A36`,
-  `--mut #54648A`, `--line`, `--e: cubic-bezier(.22,1,.36,1)`, v.v.
-- **Dự án tiêu biểu** (markup dòng 998–1024): `.show` slideshow — `.show-slides`
-  (`#show-slides`, JS đổ `.sslide`, một cái `.on` tại một thời điểm, dòng ~2075),
-  `.show-bar` progress (`@keyframes sbar`), `.show-count`, `.show-info`, `.show-nav`
-  prev/next, swipe handler dòng ~2094. CSS dòng 363–392; breakpoint mobile của mục
-  này là `@media(max-width:768px)` dòng ~389.
-- **Dịch vụ** (markup dòng 983–995): `.stack-zone#home-services` được JS đổ card
-  qua hàm `svcCard(key)` (dòng 1971–1983), data trong object `SERVICES` (dòng 1734+,
-  keys: `su-kien`, `trien-lam`, `kho-tam`, `may-lanh`). Cấu trúc card:
-  `article.scard > .info (.num, h3, p, .tags > span.tag, a.btn) + .media > img`.
-  - `.scard p`: `font-size:15.5px; line-height:1.75` (dòng ~346).
-  - `.tag`: pill 12px (dòng ~348).
-  - Nền card hiện tại: gradient trắng→xanh rất nhạt, phân biệt bằng `:nth-child(2/3/4)`
-    (dòng ~340, 354–359) — đã có sẵn cơ chế nth-child để đổi màu.
-  - Breakpoint mobile của mục này: `@media(max-width:860px)` dòng ~360.
-  - **Lưu ý**: `svcCard()` và markup `.scard` được tái dùng cho trang `/dich-vu`
-    (`#all-services`, dòng ~1351) — thay đổi CSS `.scard` sẽ ảnh hưởng cả trang đó;
-    chấp nhận (đồng bộ là tốt). Mega-menu `.mg-it` là markup khác, không đụng.
-- **Menu mobile**: chính `ul.nav#nav` biến thành drawer tại `@media(max-width:1180px)`
-  (dòng ~235), `background:var(--bg)` = trắng đặc, toggle class `.open` bởi `#burger`
-  (dòng ~2245).
-- **Animation sẵn có**: IntersectionObserver `io` (dòng ~2211) bật `.in` trên
-  `.reveal` / `.reveal.stagger`; keyframes `grain, blink, pulse2, spin, sbar, sup,
-  pgin, tmarq`; hover scale ảnh `.scard`. Mobile đã có block giảm blur/rút ngắn
-  transition (~dòng 650–664).
+Line numbers dưới đây tham chiếu **v9.html** (2342 dòng) — trong v10 chúng là điểm
+xuất phát tương ứng.
 
 ## Files & interfaces
 
-- **Tạo mới**: `v9.html` (copy từ `v5.html`, sau đó sửa trong file này).
-- Không sửa file nào khác. Không thêm asset — dùng lại ảnh dự án đã có trong data JS.
+- **Tạo mới**: `v10.html` — copy từ `v9.html`, mọi thay đổi làm trong file này.
+- Không sửa file nào khác. Data objects (`PROJECTS`, `FAQS`…), router, `IMG` giữ nguyên.
+- Tham khảo (chỉ đọc): `v7.html:394-413` (CSS `.pcard/.ptag/.pyear/.pbtn`) và
+  `v7.html:2003-2013` (hàm `prjCard()`).
 
 ## Approach
 
-### 0. Tạo file
+### 1. Giảm padding dọc section
 
-```bash
-cp v5.html v9.html
-```
+- `:root` dòng 50: đổi `--sec:clamp(68px,8vw,116px)` → `--sec:clamp(48px,6vw,84px)`.
+- Chỉ một chỗ tiêu thụ token: `.sec{padding:var(--sec) 0}` (dòng 100) — không cần sửa gì thêm.
+- Kiểm tra các inline override (vd. CEO band dòng 1136 dùng `clamp(48px,6vw,80px)`)
+  vẫn hài hoà với nhịp mới; nếu chỗ nào giờ lớn hơn `--sec` mới thì hạ tương ứng.
 
-Đổi `<title>` nếu có hậu tố version (kiểm tra và đồng bộ như cách các v khác làm).
+### 2. Band "CAM KẾT NGUYỄN BÌNH" full-bleed
 
-### 1. Card dự án kiểu PICO trên mobile
+- Markup hiện tại (dòng 1030-1046): `.sec.sec--line > .wrap > .pledge`.
+- **Bỏ `.wrap`** quanh `.pledge` (chuyển `.pledge` thành con trực tiếp của `.sec`).
+  KHÔNG sửa class `.wrap` (dòng 99) — nó là chokepoint dùng chung toàn trang.
+- Trong CSS `.pledge` (dòng 539): bỏ `border-radius:var(--r)` (full-bleed thì không
+  bo góc). Nội dung bên trong (`.pl-in`, dòng 542) đã có padding riêng bằng `clamp()`
+  nên chữ không dính mép màn hình — giữ nguyên, chỉ cân nhắc thêm `max-width` cho
+  khối text nếu quá rộng trên desktop lớn.
 
-Cách ít xâm lấn nhất: **không đụng slideshow/JS hiện có**. Thêm một container mới
-`#prj-cards` (class `.prj-cards`) ngay sau `.show` trong markup section dự án
-(dòng ~998–1024), đổ card bằng chính mảng data dự án mà slideshow đang dùng
-(cùng vòng render JS đổ `#show-slides` — thêm vài dòng đổ luôn `#prj-cards`).
+### 3. Showcase "Công trình nói thay năng lực" — auto-slide + tabs tên dự án
 
-Card PICO (theo ảnh mẫu):
+Component dùng chung desktop + mobile (một DOM `#prj-show`, một bộ JS — sửa một lần).
 
-```html
-<a class="pcard reveal" href="#/du-an">
-  <img src="..." alt="..." loading="lazy">
-  <div class="pcard-info">
-    <h3>Tên dự án</h3>
-    <span class="btn btn--sky">Xem dự án →</span>
-  </div>
-</a>
-```
+- **Xoá**:
+  - Markup 2 nút `#show-prev`/`#show-next` (`.snav`, trong dòng 1048-1075) + CSS `.snav`.
+  - Markup label `.show-count` (dòng 1060: `01 / 05`) + CSS `.show-count` (dòng 382-383).
+  - Trong JS: listener click của `#show-prev`/`#show-next`; các update `#show-cur`/`#show-total` trong `showGo()` (dòng 2131-2150).
+- **Thêm tabs tên dự án** (indicator mới, theo lựa chọn của user):
+  - Một hàng tabs (vd. `#show-tabs`) render từ `SHOW` (= `PROJECTS.slice(0,5)`, dòng 2128):
+    mỗi tab là `<button>` chứa tên dự án (`p.t`, rút gọn nếu dài), đặt dưới slider
+    (trên `.show-meta` hoặc thay vị trí hàng nav cũ).
+  - Tab active được highlight + có **fill progress** chạy 6s đồng bộ autoplay
+    (tái dùng cơ chế `@keyframes sbar` / class `.run` của `.show-bar` dòng 384-386 —
+    có thể chuyển progress bar hiện có vào trong tab active thay vì bar rời).
+  - Click tab → `showGo(index)` + `showAuto()` (reset timer).
+  - Mobile (`@media(max-width:700px)`, dòng 394-398): tabs thu gọn — cho phép
+    scroll ngang (`overflow-x:auto`, ẩn scrollbar) hoặc chỉ hiện số thứ tự/tên ngắn.
+- **Autoplay đã có sẵn** — `showAuto()` dòng 2151 (interval 6s, guard `offsetParent`).
+  Giữ nguyên, giữ touch-swipe (dòng 2154-2163). Thêm: dừng autoplay khi hover vào
+  `#show-slides` (desktop), chạy lại khi rời chuột.
+- Cập nhật `showGo()` để sync trạng thái active của tabs mỗi lần chuyển slide.
 
-CSS:
-- `.pcard`: `position:relative; border-radius:var(--r); overflow:hidden;
-  aspect-ratio:3/4` (dọc như PICO), gradient overlay tối dần về đáy
-  (`linear-gradient(180deg,transparent 40%,rgba(14,26,54,.78))` — dùng tông `--ink`),
-  h3 trắng đậm, nút pill `--sky`.
-- Hiển thị responsive: mặc định `.prj-cards{display:none}`; trong
-  `@media(max-width:768px)` (cùng breakpoint mục này): `.show{display:none}`,
-  `.prj-cards{display:grid; gap:16px}`.
-- 5 card xếp dọc, mỗi card 1 cột.
+### 4. Card `/du-an` trên mobile theo v7
 
-### 2. Card dịch vụ gọn trên mobile
+- Thay body hàm `prjCard()` (v9 dòng 2038-2045) bằng bản v7 (v7 dòng 2003-2013):
+  thêm `.ptag` (pill loại dự án), `.pyear` (năm watermark outline), `.pbtn`
+  (nút pill "xem dự án"). Data shape (`p.type/p.year/p.size/p.t/p.img`) khớp sẵn.
+- Copy CSS v7 dòng 394-413 (`.pcard::after` vignette 2 đầu, `.ptag`, `.pyear`, `.pbtn`).
+- **Scope theo yêu cầu (chỉ mobile)**: desktop giữ diện mạo card v9 hiện tại —
+  đặt các rule v7 (aspect-ratio 4/4.35, `.ptag`, `.pyear`, `.pbtn` hiển thị) trong
+  `@media(max-width:560px)` (breakpoint 1 cột hiện có, dòng 411); ngoài breakpoint đó
+  ẩn `.ptag/.pyear/.pbtn` và giữ `aspect-ratio:4/3` + `.pd` như v9.
+  (Markup v7 là superset nên render một markup cho mọi width, chỉ CSS quyết định.)
+- Lưu ý giữ text tiếng Việt qua `t('tb_event')/t('tb_expo')/t('pj_view')` —
+  kiểm tra các key này tồn tại trong v9; nếu thiếu key `pj_view` thì thêm vào dict.
 
-Trong block `@media(max-width:860px)` sẵn có (dòng ~360), thêm:
+### 5. Animation + màu sắc (tinh chỉnh palette hiện tại)
 
-```css
-.scard p{font-size:13.5px;line-height:1.6;display:-webkit-box;
-  -webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:10px 0 18px}
-.scard .tags{display:none}
-```
+Màu — giữ nhận diện v9, chỉ cân lại:
 
-Chỉ CSS — không sửa data `SERVICES` hay `svcCard()` (PC vẫn cần tags).
+- Giảm độ chói accent: `--glow:rgba(46,155,214,.28)` → hạ alpha (~.18).
+- Thống nhất accent: mọi CTA/hover dùng `--grad`/`--sky`; rà những chỗ hardcode
+  mã hex xanh lệch tông (vd. gradient trong `.pbtn` v7 là `#3AA6DF,#1F84BE` —
+  đổi sang `var(--grad)` khi port).
+- Tăng nhẹ contrast text phụ: `--mut:#54648A` → tối hơn một nấc (vd. `#4A5A80`)
+  để đỡ "bạc" trên nền sáng.
+- Không đổi `--navy/--sky` gốc, không đổi font.
 
-### 3. Màu 4 card dịch vụ (PC + Mobile)
+Animation — nâng chất, không thêm thư viện:
 
-Sửa các rule `:nth-child` sẵn có của `.scard` (dòng ~354–359): 4 sắc độ xanh nhạt
-đậm dần, chữ giữ nguyên tối. Gợi ý thang (tinh chỉnh bằng mắt khi xem browser):
+- `.reveal` (dòng 680-682): giảm blur `5px` → `3px`, giảm translateY `40px` → `28px`,
+  thêm `scale(.985)` → mượt hơn, đỡ "nặng". Giữ nguyên 3 khối media
+  motion-safety (dòng 685, 690, 697).
+- Dùng `.reveal.stagger` (dòng 797-805) cho các grid chưa có stagger
+  (services trên home, `.prj-grid`).
+- Slider showcase: easing chuyển slide dùng `--e` và tăng duration nhẹ
+  (vd. .9s → 1.05s) cho cảm giác cinematic; ảnh trong slide thêm hiệu ứng
+  scale nhẹ (Ken Burns rất nhẹ, ~1.0→1.04 trong 6s autoplay).
+- Micro-interaction: hover card/nút dùng transform + shadow qua `--e`,
+  transition đồng nhất ~.45s (rà những transition lệch duration).
 
-| Card | Gradient nền (135deg) | Viền |
-| --- | --- | --- |
-| 1 (sự kiện) | `#FFFFFF → #EAF4FC` | `rgba(46,155,214,.14)` |
-| 2 (triển lãm) | `#FAFDFF → #DEEDF9` | `rgba(46,155,214,.20)` |
-| 3 (kho tạm) | `#F6FBFF → #D2E6F6` | `rgba(46,155,214,.26)` |
-| 4 (máy lạnh) | `#F2F9FF → #C6DFF3` | `rgba(46,155,214,.32)` |
+### 6. Mobile menu — dịu màu, chuyên nghiệp hơn
 
-Tiêu chí "không đậm như v4": card đậm nhất vẫn phải là nền sáng, text `--txt`/`--mut`
-đạt contrast; tuyệt đối không nền navy chữ trắng.
+Theo user: **không phải nền tối**, cũng đừng trắng chói — gradient trắng chủ đạo
+pha chút xanh của app.
 
-### 4. Nền menu mobile
-
-Tại rule `.nav` trong `@media(max-width:1180px)` (dòng ~235): đổi
-`background:var(--bg)` → `background:var(--bg2)` (`#EDF2F9`) hoặc gradient
-`linear-gradient(180deg,#F4F8FC,#E7EFF8)`. Vẫn đặc (không blur — giữ hành vi
-`backdrop-filter:none` sẵn có cho perf mobile).
-
-### 5. Animation nhẹ
-
-Tận dụng hệ `.reveal` + `io` observer sẵn có — KHÔNG thêm thư viện:
-
-- Gắn class `reveal` (+ stagger delay qua `transition-delay` nth-child) cho
-  `.pcard` mới và các `.scard` nếu chưa có.
-- `.scard` hover (PC): nâng nhẹ `translateY(-4px)` + shadow `--sh-md`,
-  transition `.45s var(--e)` — hiện chỉ có scale ảnh.
-- `.pcard` active (mobile tap): `transform:scale(.98)` transition ngắn.
-- Nút CTA hover: hiệu ứng sẵn có của `.btn`, không thêm.
-- Menu mobile mở: drawer đã có `transform:translateX(100%)` transition — thêm
-  stagger fade-in cho các `li` (delay nth-child 40ms) là đủ.
-- Tôn trọng block giảm-motion mobile sẵn có (dòng ~650–664): mọi hiệu ứng mới trên
-  mobile chỉ dùng opacity/transform, không blur, thời lượng ≤ .5s.
-- Thêm `@media(prefers-reduced-motion:reduce)` tắt transition mới nếu v5 chưa có.
+- `.nav` mobile (dòng 231): đổi `linear-gradient(180deg,#F4F8FC,#E7EFF8)` sang
+  gradient dịu hơn có tint xanh thương hiệu, vd.
+  `linear-gradient(180deg,#EFF5FB 0%,#DEEAF6 55%,#D3E3F3 100%)` — vẫn sáng nhưng
+  không trắng gắt, ngả tông `--sky`.
+- `body.nav-open` header (dòng ~234): đổi `#FAFCFF` cho khớp tông đầu gradient mới.
+- Nav items: tăng cỡ chữ item chính, thêm chỉ số thứ tự nhỏ màu `--sky` trước mỗi
+  item (kiểu editorial), giữ stagger hiện có (dòng 245-251) nhưng tăng delay bước
+  0.06s → 0.07s và thêm translateY lớn hơn chút cho rõ nhịp.
+- `.nav-cta` (dòng 253-258): giữ, chỉnh nền/viền theo tông gradient mới.
+- **Gotcha**: khối override `body.home-on.nav-open` (dòng 239-242) reset màu
+  logo/lang/burger cho drawer sáng — vẫn hợp lệ vì drawer vẫn sáng, chỉ kiểm tra
+  contrast với tông mới.
 
 ## Out of scope
 
-- KHÔNG sửa `v5.html` hay bất kỳ version cũ nào.
-- KHÔNG đổi slideshow dự án trên desktop.
-- KHÔNG sửa nội dung tiếng Việt, số điện thoại `0937 327 777`, link Zalo, Maps.
-- KHÔNG đổi data `SERVICES` (tags vẫn tồn tại, chỉ ẩn bằng CSS trên mobile).
-- KHÔNG đụng mega-menu `.mg-it`, các trang con (`/dich-vu`, `/du-an`, …) ngoài
-  hiệu ứng phụ chấp nhận được từ CSS `.scard` dùng chung.
-- KHÔNG thêm thư viện animation, framework, file CSS/JS ngoài — giữ single-file.
+- Không sửa `v9.html` hay bất kỳ version cũ nào; không sửa `index.html`.
+- Không đổi hướng palette (accent mới / đơn sắc) — chỉ tinh chỉnh palette v9.
+- Không thêm testimonials (v9 không có, không port từ v2/v3).
+- Không đổi card `/du-an` trên **desktop** — v7-style chỉ áp cho mobile (≤560px).
+- Không thêm thư viện, không tách CSS/JS ra file riêng, không build step.
+- Không đổi nội dung tiếng Việt, số điện thoại, link Zalo, Google Maps.
 
 ## Verification
 
-Không có test tự động — verify bằng browser (mở `v9.html` trực tiếp):
+Không có test tự động — verify bằng browser (mở trực tiếp `v10.html`):
 
-1. **Mobile 390×844** (DevTools hoặc browser tool, resize mobile):
-   - Mục dự án tiêu biểu: 5 card dọc full-ảnh, tiêu đề trắng đè đáy ảnh, nút CTA;
-     slideshow không hiện.
-   - Card dịch vụ: description tối đa 2 dòng, không còn pill tag nào.
-   - Mở menu burger: nền xanh nhạt (không trắng đặc), item fade-in nhẹ.
-   - Cuộn trang: reveal mượt, không giật.
-2. **Desktop 1280+**:
-   - Mục dự án là slideshow y như v5 (progress bar, prev/next, swipe).
-   - 4 card dịch vụ: 4 sắc xanh nhạt phân biệt được, chữ tối đọc rõ, tag còn nguyên.
-   - Hover card dịch vụ: nâng nhẹ + shadow.
-3. **Trang `/dich-vu`**: card `.scard` vẫn render đúng với màu mới (hiệu ứng dùng
-   chung CSS).
-4. So sánh nhanh v5 vs v9 desktop: ngoài màu card dịch vụ + hover, layout không đổi.
-5. Chụp screenshot mobile + desktop làm bằng chứng trước khi `/ship`.
+1. **Desktop (~1440px)**:
+   - Các section sít lại rõ rệt so với v9 (mở v9 cạnh bên để so).
+   - Band "CAM KẾT NGUYỄN BÌNH" chạm cả 2 mép màn hình, không bo góc, chữ không dính mép.
+   - Showcase: không còn nút prev/next, không còn "01/05"; slide tự chuyển mỗi 6s;
+     hàng tabs tên dự án hiện dưới slider, tab active highlight + progress fill chạy;
+     click tab bất kỳ → nhảy đúng slide và timer reset; hover vào ảnh → tạm dừng.
+   - `/du-an` desktop: card giữ nguyên diện mạo v9 (không ptag/pyear/pbtn).
+2. **Mobile (≤560px, DevTools responsive)**:
+   - `/du-an`: card kiểu v7 — pill loại dự án góc trên trái, năm watermark outline,
+     nút pill "xem dự án" gradient.
+   - Showcase mobile vẫn swipe được, tabs không tràn layout (scroll ngang được).
+   - Mở burger menu: gradient sáng dịu pha xanh (không trắng chói), items stagger
+     mượt, CTA điện thoại/Zalo hoạt động.
+3. **Chung**: chuyển qua đủ các hash route (`#/`, `#/dich-vu/...`, `#/du-an`,
+   `#/lien-he`…) — reveal animation chạy lại bình thường, không lỗi console.
+4. Bật "Emulate CSS prefers-reduced-motion" → mọi thứ hiện tức thì, không animation.
+
+Sau khi verify: chạy `/review-diff`, rồi `/ship` (commit `feat: v10 — ...`,
+GitHub Pages tự deploy từ `main`).

@@ -1,153 +1,131 @@
-# SPEC — v10.html (phát triển từ v9.html)
+# SPEC — Thay ảnh trang `#/gioi-thieu` (v10.html)
 
 ## Goal
 
-Tạo `v10.html` bằng cách **copy `v9.html`** (không sửa v9 — quy tắc "versions are kept,
-not replaced"), rồi thực hiện 6 cải tiến: giảm khoảng trống dọc giữa các section,
-band "CAM KẾT NGUYỄN BÌNH" full-bleed, showcase "Công trình nói thay năng lực"
-tự chạy với tabs tên dự án (bỏ nút prev/next và label 01/05), card `/du-an` trên
-mobile theo phong cách v7, animation mượt/chuyên nghiệp hơn, và mobile menu dịu
-màu hơn (gradient sáng pha xanh, không trắng chói). Kết quả là một file HTML
-tự chứa duy nhất, tiếng Việt, chạy bằng cách mở trực tiếp trong browser.
+Khách hàng đã cung cấp 4 ảnh công trình thật trong `img/about/`. Thay 5 ảnh cũ
+(đang load remote từ `nguyenbinh.com`) trên trang **Về Nguyễn Bình**
+(`v10.html#/gioi-thieu`) bằng 4 ảnh này, đặt đúng slot để ảnh không bị crop và
+thông điệp từng section được minh hoạ chính xác. Kết quả quan sát được: mở
+`#/gioi-thieu`, hero + block **(01) Tầm nhìn** + block **(02) Sứ mệnh** dùng ảnh
+local mới, không còn request nào tới `nguyenbinh.com` cho 5 ảnh đó, layout không
+lệch ở cả desktop và mobile.
 
-Line numbers dưới đây tham chiếu **v9.html** (2342 dòng) — trong v10 chúng là điểm
-xuất phát tương ứng.
+## Ảnh & mapping (đã chốt — không đổi thứ tự)
 
-## Files & interfaces
+| File | Kích thước | Tỉ lệ | Slot | Crop |
+|---|---|---|---|---|
+| `img/about/hero.png` | 1911×554 | 3.45:1 | `.hero-sub .bgim img` | cover, cắt 2 bên (giữ tâm) |
+| `img/about/tam_nhin_1.png` | 1436×1112 | 1.29:1 | `.stack-media .m1` (section 01) | **0%** — `aspect-ratio:4/3.1` = 1.29 |
+| `img/about/tam_nhin_2.png` | 957×1008 | 0.949:1 | `.stack-media .m2` (section 01) | **0%** — `aspect-ratio:1/1.05` = 0.952 |
+| `img/about/su_menh_1.png` | 957×1008 | 0.949:1 | ảnh đơn (section 02) | ~0.3% |
 
-- **Tạo mới**: `v10.html` — copy từ `v9.html`, mọi thay đổi làm trong file này.
-- Không sửa file nào khác. Data objects (`PROJECTS`, `FAQS`…), router, `IMG` giữ nguyên.
-- Tham khảo (chỉ đọc): `v7.html:394-413` (CSS `.pcard/.ptag/.pyear/.pbtn`) và
-  `v7.html:2003-2013` (hàm `prjCard()`).
+Lý do chọn (khớp thông điệp):
+
+- `hero.png` — mặt ngoài SECC với branding Vietfood & Beverage / ProPack: đúng
+  thông điệp "Hồ sơ năng lực" + SECC là khách hàng chủ lực.
+- `tam_nhin_1.png` — nội thất nhà bạt triển lãm, lối đi dài, thấy rõ kết cấu
+  khẩu độ lớn không cột giữa → minh hoạ "15+ năm dẫn đầu", quy mô, chuẩn quốc tế.
+- `tam_nhin_2.png` — cổng truss lối vào, có người đi → human scale + chi tiết
+  hoàn thiện, bổ trợ cho ảnh toàn cảnh ở trên.
+- `su_menh_1.png` — mái bạt in thương hiệu Hawa Expo 2026 (đỏ/trắng), ảnh nổi
+  bật nhất trong bộ → minh hoạ trực tiếp "Mọi không gian đều có giải pháp phù hợp"
+  (bạt in riêng theo từng khách).
+
+## Files & thay đổi
+
+Chỉ sửa **`nguyenbinh-redesign/v10.html`** (đã chốt: sửa tại chỗ, không tạo v11).
+Không thêm CSS mới — dùng inline `style` như các chỗ khác trong file.
+
+### 1. Hero — dòng 1126
+
+```html
+<div class="bgim"><img decoding="async" src="img/about/hero.png" alt=""></div>
+```
+
+Giữ `alt=""`: ảnh nền trang trí, nằm sau scrim tối. Không thêm `loading="lazy"`
+(ảnh above-the-fold, giống pattern `img/hero-nhabat.jpg` ở trang `nha-bat`).
+
+### 2. Section (01) Tầm nhìn — dòng 1146–1147
+
+```html
+<img loading="lazy" decoding="async" class="m1" src="img/about/tam_nhin_1.png" alt="Nhà bạt triển lãm khẩu độ lớn — gian hàng hội chợ quốc tế">
+<img loading="lazy" decoding="async" class="m2" src="img/about/tam_nhin_2.png" alt="Cổng truss lối vào triển lãm ProPack Vietnam">
+```
+
+Giữ nguyên `class="m1"` / `class="m2"` và `<div class="stack-media reveal d1">`.
+
+### 3. Section (02) Sứ mệnh — dòng 1166–1169
+
+Khách chỉ có **1 ảnh** cho section này, trong khi `.stack-media` cần 1 ảnh
+landscape (`.m1`) + 1 ảnh vuông (`.m2`). Đưa `su_menh_1.png` vào `.m1` với tỉ lệ
+gốc và **bỏ `.m2`** — không nhồi ảnh cũ vào để tránh trộn ảnh mới với thumbnail
+WP cũ (300×200, chất lượng thấp). Đồng thời tạo nhịp thị giác khác với section 01
+thay vì lặp lại y hệt bố cục xếp lớp.
+
+Thay cả block `<div class="stack-media reveal">…</div>` (4 dòng) bằng:
+
+```html
+      <div class="stack-media reveal">
+        <img loading="lazy" decoding="async" class="m1" style="aspect-ratio:1/1.05" src="img/about/su_menh_1.png" alt="Mái bạt in thương hiệu Hawa Expo 2026 — lối vào SECC">
+      </div>
+```
+
+Cũng cập nhật comment ở dòng 1163 cho khỏi lạc hậu:
+`<!-- Sứ mệnh — ảnh công trình Hawa Expo 2026 do khách cung cấp -->`
+
+### 4. Git
+
+`img/about/` hiện **chưa được track** (`git status` → `?? img/about/`). Phải
+`git add img/about/` cùng commit, nếu không GitHub Pages sẽ 404 cả 4 ảnh.
 
 ## Approach
 
-### 1. Giảm padding dọc section
-
-- `:root` dòng 50: đổi `--sec:clamp(68px,8vw,116px)` → `--sec:clamp(48px,6vw,84px)`.
-- Chỉ một chỗ tiêu thụ token: `.sec{padding:var(--sec) 0}` (dòng 100) — không cần sửa gì thêm.
-- Kiểm tra các inline override (vd. CEO band dòng 1136 dùng `clamp(48px,6vw,80px)`)
-  vẫn hài hoà với nhịp mới; nếu chỗ nào giờ lớn hơn `--sec` mới thì hạ tương ứng.
-
-### 2. Band "CAM KẾT NGUYỄN BÌNH" full-bleed
-
-- Markup hiện tại (dòng 1030-1046): `.sec.sec--line > .wrap > .pledge`.
-- **Bỏ `.wrap`** quanh `.pledge` (chuyển `.pledge` thành con trực tiếp của `.sec`).
-  KHÔNG sửa class `.wrap` (dòng 99) — nó là chokepoint dùng chung toàn trang.
-- Trong CSS `.pledge` (dòng 539): bỏ `border-radius:var(--r)` (full-bleed thì không
-  bo góc). Nội dung bên trong (`.pl-in`, dòng 542) đã có padding riêng bằng `clamp()`
-  nên chữ không dính mép màn hình — giữ nguyên, chỉ cân nhắc thêm `max-width` cho
-  khối text nếu quá rộng trên desktop lớn.
-
-### 3. Showcase "Công trình nói thay năng lực" — auto-slide + tabs tên dự án
-
-Component dùng chung desktop + mobile (một DOM `#prj-show`, một bộ JS — sửa một lần).
-
-- **Xoá**:
-  - Markup 2 nút `#show-prev`/`#show-next` (`.snav`, trong dòng 1048-1075) + CSS `.snav`.
-  - Markup label `.show-count` (dòng 1060: `01 / 05`) + CSS `.show-count` (dòng 382-383).
-  - Trong JS: listener click của `#show-prev`/`#show-next`; các update `#show-cur`/`#show-total` trong `showGo()` (dòng 2131-2150).
-- **Thêm tabs tên dự án** (indicator mới, theo lựa chọn của user):
-  - Một hàng tabs (vd. `#show-tabs`) render từ `SHOW` (= `PROJECTS.slice(0,5)`, dòng 2128):
-    mỗi tab là `<button>` chứa tên dự án (`p.t`, rút gọn nếu dài), đặt dưới slider
-    (trên `.show-meta` hoặc thay vị trí hàng nav cũ).
-  - Tab active được highlight + có **fill progress** chạy 6s đồng bộ autoplay
-    (tái dùng cơ chế `@keyframes sbar` / class `.run` của `.show-bar` dòng 384-386 —
-    có thể chuyển progress bar hiện có vào trong tab active thay vì bar rời).
-  - Click tab → `showGo(index)` + `showAuto()` (reset timer).
-  - Mobile (`@media(max-width:700px)`, dòng 394-398): tabs thu gọn — cho phép
-    scroll ngang (`overflow-x:auto`, ẩn scrollbar) hoặc chỉ hiện số thứ tự/tên ngắn.
-- **Autoplay đã có sẵn** — `showAuto()` dòng 2151 (interval 6s, guard `offsetParent`).
-  Giữ nguyên, giữ touch-swipe (dòng 2154-2163). Thêm: dừng autoplay khi hover vào
-  `#show-slides` (desktop), chạy lại khi rời chuột.
-- Cập nhật `showGo()` để sync trạng thái active của tabs mỗi lần chuyển slide.
-
-### 4. Card `/du-an` trên mobile theo v7
-
-- Thay body hàm `prjCard()` (v9 dòng 2038-2045) bằng bản v7 (v7 dòng 2003-2013):
-  thêm `.ptag` (pill loại dự án), `.pyear` (năm watermark outline), `.pbtn`
-  (nút pill "xem dự án"). Data shape (`p.type/p.year/p.size/p.t/p.img`) khớp sẵn.
-- Copy CSS v7 dòng 394-413 (`.pcard::after` vignette 2 đầu, `.ptag`, `.pyear`, `.pbtn`).
-- **Scope theo yêu cầu (chỉ mobile)**: desktop giữ diện mạo card v9 hiện tại —
-  đặt các rule v7 (aspect-ratio 4/4.35, `.ptag`, `.pyear`, `.pbtn` hiển thị) trong
-  `@media(max-width:560px)` (breakpoint 1 cột hiện có, dòng 411); ngoài breakpoint đó
-  ẩn `.ptag/.pyear/.pbtn` và giữ `aspect-ratio:4/3` + `.pd` như v9.
-  (Markup v7 là superset nên render một markup cho mọi width, chỉ CSS quyết định.)
-- Lưu ý giữ text tiếng Việt qua `t('tb_event')/t('tb_expo')/t('pj_view')` —
-  kiểm tra các key này tồn tại trong v9; nếu thiếu key `pj_view` thì thêm vào dict.
-
-### 5. Animation + màu sắc (tinh chỉnh palette hiện tại)
-
-Màu — giữ nhận diện v9, chỉ cân lại:
-
-- Giảm độ chói accent: `--glow:rgba(46,155,214,.28)` → hạ alpha (~.18).
-- Thống nhất accent: mọi CTA/hover dùng `--grad`/`--sky`; rà những chỗ hardcode
-  mã hex xanh lệch tông (vd. gradient trong `.pbtn` v7 là `#3AA6DF,#1F84BE` —
-  đổi sang `var(--grad)` khi port).
-- Tăng nhẹ contrast text phụ: `--mut:#54648A` → tối hơn một nấc (vd. `#4A5A80`)
-  để đỡ "bạc" trên nền sáng.
-- Không đổi `--navy/--sky` gốc, không đổi font.
-
-Animation — nâng chất, không thêm thư viện:
-
-- `.reveal` (dòng 680-682): giảm blur `5px` → `3px`, giảm translateY `40px` → `28px`,
-  thêm `scale(.985)` → mượt hơn, đỡ "nặng". Giữ nguyên 3 khối media
-  motion-safety (dòng 685, 690, 697).
-- Dùng `.reveal.stagger` (dòng 797-805) cho các grid chưa có stagger
-  (services trên home, `.prj-grid`).
-- Slider showcase: easing chuyển slide dùng `--e` và tăng duration nhẹ
-  (vd. .9s → 1.05s) cho cảm giác cinematic; ảnh trong slide thêm hiệu ứng
-  scale nhẹ (Ken Burns rất nhẹ, ~1.0→1.04 trong 6s autoplay).
-- Micro-interaction: hover card/nút dùng transform + shadow qua `--e`,
-  transition đồng nhất ~.45s (rà những transition lệch duration).
-
-### 6. Mobile menu — dịu màu, chuyên nghiệp hơn
-
-Theo user: **không phải nền tối**, cũng đừng trắng chói — gradient trắng chủ đạo
-pha chút xanh của app.
-
-- `.nav` mobile (dòng 231): đổi `linear-gradient(180deg,#F4F8FC,#E7EFF8)` sang
-  gradient dịu hơn có tint xanh thương hiệu, vd.
-  `linear-gradient(180deg,#EFF5FB 0%,#DEEAF6 55%,#D3E3F3 100%)` — vẫn sáng nhưng
-  không trắng gắt, ngả tông `--sky`.
-- `body.nav-open` header (dòng ~234): đổi `#FAFCFF` cho khớp tông đầu gradient mới.
-- Nav items: tăng cỡ chữ item chính, thêm chỉ số thứ tự nhỏ màu `--sky` trước mỗi
-  item (kiểu editorial), giữ stagger hiện có (dòng 245-251) nhưng tăng delay bước
-  0.06s → 0.07s và thêm translateY lớn hơn chút cho rõ nhịp.
-- `.nav-cta` (dòng 253-258): giữ, chỉnh nền/viền theo tông gradient mới.
-- **Gotcha**: khối override `body.home-on.nav-open` (dòng 239-242) reset màu
-  logo/lang/burger cho drawer sáng — vẫn hợp lệ vì drawer vẫn sáng, chỉ kiểm tra
-  contrast với tông mới.
+Sửa tuần tự 4 điểm ở trên bằng `Edit`, rồi verify một lượt (thay đổi thuần
+`src`/markup, không có logic — không cần TDD, không có test harness trong repo).
+Không đụng `<script>`, không đụng `SHOW`/`PROJECTS`.
 
 ## Out of scope
 
-- Không sửa `v9.html` hay bất kỳ version cũ nào; không sửa `index.html`.
-- Không đổi hướng palette (accent mới / đơn sắc) — chỉ tinh chỉnh palette v9.
-- Không thêm testimonials (v9 không có, không port từ v2/v3).
-- Không đổi card `/du-an` trên **desktop** — v7-style chỉ áp cho mobile (≤560px).
-- Không thêm thư viện, không tách CSS/JS ra file riêng, không build step.
-- Không đổi nội dung tiếng Việt, số điện thoại, link Zalo, Google Maps.
+- **Ảnh CEO** (dòng ~1153) vẫn trỏ `Logo.png` làm placeholder. Khách chưa gửi
+  ảnh chân dung → giữ nguyên. *Cần yêu cầu khách cung cấp ảnh CEO Nguyễn Tích
+  Bình, tỉ lệ ~1:1.05, để thay sau.*
+- **3 card "Lĩnh vực hoạt động"** (dòng ~1197–1210) giữ ảnh remote `3-min.png`,
+  `4-min.png`, `5-min.png`. Không tái sử dụng 4 ảnh mới ở đây (sẽ lặp ảnh 2 lần
+  trên cùng một trang).
+- **Tối ưu dung lượng ảnh**: đã chốt dùng nguyên file PNG gốc. Lưu ý trang
+  `#/gioi-thieu` sẽ tải thêm ~7 MB (hero 1,78 MB + tam_nhin_1 2,24 MB +
+  tam_nhin_2 1,74 MB + su_menh_1 1,22 MB). Nếu sau này thấy chậm, xuất JPEG
+  q80 (~200–400 KB/ảnh) là bước tiếp theo.
+- **Bản copy ở root** `../nguyenbinh-redesign-v10.html`: đã **drift** khỏi
+  `v10.html` từ trước (1981 vs 2366 dòng) nên không phải mirror byte-identical
+  như `../CLAUDE.md` mô tả. Không sync trong lần này.
+- Các trang khác (`index.html`, `v2`–`v9`) không đổi.
 
 ## Verification
 
-Không có test tự động — verify bằng browser (mở trực tiếp `v10.html`):
+```bash
+git -C /Users/nhatnguyen/Documents/Design/nguyenbinh-redesign status --short img/about
+```
 
-1. **Desktop (~1440px)**:
-   - Các section sít lại rõ rệt so với v9 (mở v9 cạnh bên để so).
-   - Band "CAM KẾT NGUYỄN BÌNH" chạm cả 2 mép màn hình, không bo góc, chữ không dính mép.
-   - Showcase: không còn nút prev/next, không còn "01/05"; slide tự chuyển mỗi 6s;
-     hàng tabs tên dự án hiện dưới slider, tab active highlight + progress fill chạy;
-     click tab bất kỳ → nhảy đúng slide và timer reset; hover vào ảnh → tạm dừng.
-   - `/du-an` desktop: card giữ nguyên diện mạo v9 (không ptag/pyear/pbtn).
-2. **Mobile (≤560px, DevTools responsive)**:
-   - `/du-an`: card kiểu v7 — pill loại dự án góc trên trái, năm watermark outline,
-     nút pill "xem dự án" gradient.
-   - Showcase mobile vẫn swipe được, tabs không tràn layout (scroll ngang được).
-   - Mở burger menu: gradient sáng dịu pha xanh (không trắng chói), items stagger
-     mượt, CTA điện thoại/Zalo hoạt động.
-3. **Chung**: chuyển qua đủ các hash route (`#/`, `#/dich-vu/...`, `#/du-an`,
-   `#/lien-he`…) — reveal animation chạy lại bình thường, không lỗi console.
-4. Bật "Emulate CSS prefers-reduced-motion" → mọi thứ hiện tức thì, không animation.
+1. `preview_start {name: "static-server"}` → mở
+   `http://localhost:8931/v10.html#/gioi-thieu`.
+2. `read_network_requests` — **pass khi**: 4 request `img/about/*.png` đều
+   `200`, và **không** còn request nào tới `nguyenbinh.com` cho 5 URL cũ
+   (`nha-bat-nguyen-binh-gioi-thieu-scaled.jpg`, `about-1024x576.png`,
+   `co-so-ha-tang-nha-bat-nguyen-binh-1-300x246.jpg`,
+   `co-so-ha-tang-nha-bat-nguyen-binh-1-1024x838.jpg`,
+   `nha-bat-nguyen-binh-4-300x200.jpg`).
+3. `read_console_messages` — không có error mới.
+4. Screenshot ở `desktop` (1280×800): kiểm tra (a) chữ trên hero còn đọc rõ trên
+   ảnh SECC mới, (b) `.m2` của section 01 không đè mất nội dung, (c) ảnh Sứ mệnh
+   đơn không kéo section cao lệch so với cột chữ (`.split` cho cột media
+   `1.05fr` nên ảnh cao ~600px — chấp nhận được, nhưng phải xem thật).
+5. `resize_window {preset: "mobile"}` + reload → screenshot: ở `max-width:920px`
+   `.split` về 1 cột, `.m2` dịch `right:8px`; xác nhận không tràn ngang.
+6. Nếu chữ hero bị chìm vào vùng sáng của ảnh, thêm
+   `style="object-position:70% center"` vào `img` của `.bgim` (scrim tối nhất ở
+   bên trái — dịch ảnh sang phải để phần sáng nằm ngoài vùng chữ). Chỉ làm khi
+   screenshot cho thấy cần.
 
-Sau khi verify: chạy `/review-diff`, rồi `/ship` (commit `feat: v10 — ...`,
-GitHub Pages tự deploy từ `main`).
+Definition of Done: bước 2 + 4 + 5 phải có output/screenshot thực tế, không được
+suy đoán.

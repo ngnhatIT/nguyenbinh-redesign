@@ -565,6 +565,16 @@ body.home-on .header:not(.solid) .logo .lg-b{display:none}
 .pl-badges span{display:inline-flex;align-items:center;gap:8px;font-family:var(--disp);font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.72);padding:9px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.22)}
 .pl-badges span::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--sky);box-shadow:0 0 8px var(--sky);flex:none}
 
+/* project detail media */
+.pd-media{margin-top:var(--sec)}
+.pd-video{aspect-ratio:16/9;overflow:hidden;border-radius:18px;border:1px solid var(--line);background:#070c18;box-shadow:var(--sh-md)}
+.pd-video iframe{display:block;width:100%;height:100%;border:0}
+.pd-video-link{display:inline-block;margin-top:16px;text-underline-offset:4px}
+.pd-gallery{display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px}
+.pd-gallery figure{margin:0;overflow:hidden;border-radius:18px;border:1px solid var(--line);aspect-ratio:4/3}
+.pd-gallery figure:first-child{grid-row:span 2;aspect-ratio:auto}
+.pd-gallery img{display:block;width:100%;height:100%;object-fit:cover}
+@media(max-width:720px){.pd-gallery{grid-template-columns:1fr 1fr;gap:12px}.pd-gallery figure:first-child{grid-column:1/-1;grid-row:auto;aspect-ratio:4/3}}
 /* gallery */
 .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .gallery figure{border-radius:18px;overflow:hidden;position:relative;margin:0;border:1px solid var(--line);box-shadow:var(--sh-md);transition:border-color .35s,box-shadow .35s,transform .4s var(--e)}
@@ -1559,6 +1569,25 @@ body.landing-on .float{bottom:88px}
           <a class="btn btn--sky" href="#/lien-he" data-i="pd_cta">Báo giá dự án tương tự</a>
         </aside>
       </div>
+      <section class="pd-media" aria-labelledby="pd-video-title">
+        <div class="sec-head reveal"><span class="eyeb"><i></i><span data-i="pd_video">Video</span></span><h2 class="h2" id="pd-video-title" data-i="pd_video_h">Video dự án</h2></div>
+        <div class="pd-video reveal">
+          <!-- Thay ID video trong đường dẫn /embed/ và link YouTube bên dưới khi cần. -->
+          <iframe id="pd-video" width="1337" height="752" src="https://www.youtube-nocookie.com/embed/ZAju-cZP97c" title="NHÀ BẠT KHÔNG GIAN CHO SỰ KIỆN CỦA AUTOMECHANIKA + EMMA | DỰ ÁN NỔI BẬT CỦA NGUYỄN BÌNH" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <a class="pd-video-link" href="https://www.youtube.com/watch?v=ZAju-cZP97c" target="_blank" rel="noopener noreferrer" data-i="pd_video_link">Xem trên YouTube ↗</a>
+      </section>
+      <section class="pd-media" aria-labelledby="pd-gallery-title">
+        <div class="sec-head reveal"><span class="eyeb"><i></i><span data-i="pd_gallery">Thư viện hình ảnh</span></span><h2 class="h2" id="pd-gallery-title" data-i="pd_gallery_h">Hình ảnh dự án</h2></div>
+        <!-- 5 ảnh minh họa từ thư viện hiện có; thay src và alt bằng ảnh chính thức của dự án. -->
+        <div class="pd-gallery reveal">
+          <figure><img loading="lazy" decoding="async" src="https://nguyenbinh.com/wp-content/uploads/2024/07/gameverse.jpg" alt="Không gian sự kiện Vietnam GameVerse 2024"></figure>
+          <figure><img loading="lazy" decoding="async" src="https://nguyenbinh.com/wp-content/uploads/2024/07/nha-bat-nguyen-binh-3-1024x768.jpg" alt="Hình minh họa nhà bạt Nguyễn Bình"></figure>
+          <figure><img loading="lazy" decoding="async" src="https://nguyenbinh.com/wp-content/uploads/2024/07/nha-bat-nguyen-binh-4-1024x683.jpg" alt="Hình minh họa không gian nhà bạt"></figure>
+          <figure><img loading="lazy" decoding="async" src="https://nguyenbinh.com/wp-content/uploads/2023/06/cho-thue-nha-bat-khong-gian-11.jpg" alt="Hình minh họa nhà bạt không gian"></figure>
+          <figure><img loading="lazy" decoding="async" src="https://nguyenbinh.com/wp-content/uploads/2024/07/co-so-ha-tang-nha-bat-nguyen-binh-1-1024x838.jpg" alt="Hình minh họa cơ sở hạ tầng nhà bạt Nguyễn Bình"></figure>
+        </div>
+      </section>
       <div style="margin-top:var(--sec)">
         <div class="sec-head reveal"><span class="eyeb"><i></i><span data-i="pd_other">Dự án khác</span></span><h2 class="h2" data-i="pd_other_h">Có thể bạn quan tâm</h2></div>
         <div class="prj-grid" id="pd-related"></div>
@@ -1947,7 +1976,7 @@ vi:{
   dv_h1:'Dịch vụ của Nguyễn Bình', dv_lead:'Bốn nhóm giải pháp trọn gói — một tiêu chuẩn thi công: nhanh, an toàn, đúng tiến độ.', dv_faq_h:'Câu hỏi thường gặp', dv_cta_h:'Bắt đầu dự án của bạn hôm nay', dv_cta_p:'Khảo sát miễn phí — báo giá chi tiết trong 24 giờ làm việc.',
   sv_intro:'Giới thiệu dịch vụ', sv_quote:'Nhận báo giá dịch vụ này', sv_bene:'Lợi ích', sv_bene_h:'Vì sao chọn dịch vụ này?', sv_gal:'Hình ảnh', sv_gal_h:'Dự án thực tế',
   da_h1:'Dự án nổi bật', da_lead:'Hơn 400 dự án sự kiện, triển lãm và kho tạm trên toàn quốc từ 2009 đến nay.', tb_all:'Tất cả', tb_event:'Sự kiện', tb_expo:'Triển lãm', tb_years:'Mọi năm', da_empty:'Chưa có dự án khớp bộ lọc — thử năm hoặc loại hình khác.',
-  pd_info:'Thông tin dự án', pd_type:'Loại hình', pd_size:'Quy mô', pd_year:'Năm thi công', pd_loc:'Địa điểm', pd_time:'Thời gian lắp đặt', pd_span:'Khẩu độ', pd_cta:'Báo giá dự án tương tự', pd_other:'Dự án khác', pd_other_h:'Có thể bạn quan tâm',
+  pd_video:'Video', pd_video_h:'Video dự án', pd_video_link:'Xem trên YouTube ↗', pd_gallery:'Thư viện hình ảnh', pd_gallery_h:'Hình ảnh dự án', pd_info:'Thông tin dự án', pd_type:'Loại hình', pd_size:'Quy mô', pd_year:'Năm thi công', pd_loc:'Địa điểm', pd_time:'Thời gian lắp đặt', pd_span:'Khẩu độ', pd_cta:'Báo giá dự án tương tự', pd_other:'Dự án khác', pd_other_h:'Có thể bạn quan tâm',
   kt_h1:'Kiến thức &amp; Cẩm nang', kt_lead:'Kinh nghiệm tổ chức sự kiện, thiết bị và cẩm nang nhà bạt từ đội ngũ 15+ năm trong nghề.', bv_rel:'Bài viết liên quan', bv_cta:'Tư vấn tổ chức sự kiện',
   lh_h1:'Liên hệ Nguyễn Bình', lh_lead:'Khảo sát miễn phí — báo giá chi tiết trong vòng 24 giờ làm việc.', lh_addr_h:'Địa chỉ văn phòng', lh_hot_h:'Hotline 24/7', lh_hot_d:'hỗ trợ cả Zalo', lh_mail_h:'Email báo giá', lh_time_h:'Giờ làm việc', lh_time_d:'Thứ 2 – Thứ 7: 8:00 – 17:30<br>Thi công &amp; bảo trì sự kiện: 24/7', lh_form_h:'Gửi yêu cầu báo giá', lh_form_p:'Điền thông tin bên dưới — chúng tôi phản hồi trong 24 giờ làm việc.',
   f_name:'Họ và tên *', f_phone:'Số điện thoại *', f_service:'Dịch vụ quan tâm', f_size:'Diện tích dự kiến', f_loc:'Địa điểm', f_msg:'Nội dung yêu cầu', f_send:'Gửi yêu cầu báo giá',
@@ -1977,7 +2006,7 @@ en:{
   dv_h1:'Nguyen Binh services', dv_lead:'Four full-package solution groups — one construction standard: fast, safe, on schedule.', dv_faq_h:'Frequently asked questions', dv_cta_h:'Start your project today', dv_cta_p:'Free survey — detailed quote within 24 working hours.',
   sv_intro:'Service overview', sv_quote:'Get a quote for this service', sv_bene:'Benefits', sv_bene_h:'Why choose this service?', sv_gal:'Photos', sv_gal_h:'Real projects',
   da_h1:'Featured projects', da_lead:'Over 400 event, exhibition and warehouse projects nationwide since 2009.', tb_all:'All', tb_event:'Events', tb_expo:'Exhibitions', tb_years:'All years', da_empty:'No projects match the filter — try another year or category.',
-  pd_info:'Project information', pd_type:'Category', pd_size:'Scale', pd_year:'Year', pd_loc:'Location', pd_time:'Installation time', pd_span:'Span', pd_cta:'Quote a similar project', pd_other:'Other projects', pd_other_h:'You may also like',
+  pd_video:'Video', pd_video_h:'Project video', pd_video_link:'Watch on YouTube ↗', pd_gallery:'Photo gallery', pd_gallery_h:'Project images', pd_info:'Project information', pd_type:'Category', pd_size:'Scale', pd_year:'Year', pd_loc:'Location', pd_time:'Installation time', pd_span:'Span', pd_cta:'Quote a similar project', pd_other:'Other projects', pd_other_h:'You may also like',
   kt_h1:'Insights &amp; Handbook', kt_lead:'Event planning experience, equipment guides and tent handbooks from a 15+ year team.', bv_rel:'Related articles', bv_cta:'Event planning advice',
   lh_h1:'Contact Nguyen Binh', lh_lead:'Free survey — detailed quote within 24 working hours.', lh_addr_h:'Office address', lh_hot_h:'Hotline 24/7', lh_hot_d:'Zalo supported', lh_mail_h:'Quotation email', lh_time_h:'Working hours', lh_time_d:'Mon – Sat: 8:00 – 17:30<br>Event setup &amp; maintenance: 24/7', lh_form_h:'Request a quote', lh_form_p:'Fill in the form below — we respond within 24 working hours.',
   f_name:'Full name *', f_phone:'Phone number *', f_service:'Service of interest', f_size:'Estimated area', f_loc:'Location', f_msg:'Your request', f_send:'Send quote request',
@@ -2007,7 +2036,7 @@ zh:{
   dv_h1:'阮平服务项目', dv_lead:'四大全包方案——同一施工标准：快速、安全、如期。', dv_faq_h:'常见问题', dv_cta_h:'今天就开始您的项目', dv_cta_p:'免费勘察——24个工作小时内提供详细报价。',
   sv_intro:'服务介绍', sv_quote:'获取该服务报价', sv_bene:'优势', sv_bene_h:'为什么选择该服务？', sv_gal:'图片', sv_gal_h:'实际项目',
   da_h1:'精选项目', da_lead:'自2009年以来全国400多个活动、展览及仓库项目。', tb_all:'全部', tb_event:'活动', tb_expo:'展览', tb_years:'所有年份', da_empty:'没有符合筛选的项目——请尝试其他年份或类型。',
-  pd_info:'项目信息', pd_type:'类型', pd_size:'规模', pd_year:'施工年份', pd_loc:'地点', pd_time:'安装时间', pd_span:'跨度', pd_cta:'类似项目报价', pd_other:'其他项目', pd_other_h:'您可能感兴趣',
+  pd_video:'视频', pd_video_h:'项目视频', pd_video_link:'在 YouTube 上观看 ↗', pd_gallery:'图片库', pd_gallery_h:'项目图片', pd_info:'项目信息', pd_type:'类型', pd_size:'规模', pd_year:'施工年份', pd_loc:'地点', pd_time:'安装时间', pd_span:'跨度', pd_cta:'类似项目报价', pd_other:'其他项目', pd_other_h:'您可能感兴趣',
   kt_h1:'资讯与指南', kt_lead:'来自15年以上团队的活动策划经验、设备与篷房指南。', bv_rel:'相关文章', bv_cta:'活动策划咨询',
   lh_h1:'联系阮平', lh_lead:'免费勘察——24个工作小时内提供详细报价。', lh_addr_h:'办公地址', lh_hot_h:'24/7热线', lh_hot_d:'支持Zalo', lh_mail_h:'报价邮箱', lh_time_h:'工作时间', lh_time_d:'周一至周六：8:00 – 17:30<br>活动施工与维护：24/7', lh_form_h:'索取报价', lh_form_p:'填写以下信息——我们将在24个工作小时内回复。',
   f_name:'姓名 *', f_phone:'电话号码 *', f_service:'感兴趣的服务', f_size:'预计面积', f_loc:'地点', f_msg:'需求内容', f_send:'发送报价请求',
@@ -2278,6 +2307,8 @@ function route(){
   if(page==='du-an' && q.get('type')){ prjType=q.get('type'); [...$('#prj-type-filter').children].forEach(c=>c.classList.toggle('on', c.dataset.type===prjType)); }
   if(page==='kien-thuc' && q.get('cat')){ blogCat=q.get('cat'); [...$('#blog-filter').children].forEach(c=>c.classList.toggle('on', c.dataset.cat===blogCat)); }
 
+  const projectVideo = document.getElementById('pd-video');
+  if(page!=='du-an-chi-tiet' && document.querySelector('[data-page=du-an-chi-tiet]').classList.contains('on')) projectVideo.src = projectVideo.src;
   document.querySelectorAll('.page').forEach(p=>p.classList.toggle('on', p.dataset.page===page));
   document.body.classList.toggle('landing-on', page==='nha-bat');
   document.body.classList.toggle('home-on', page==='home' || !!document.querySelector(`.page[data-page="${page}"] .hero-sub--dark`));
